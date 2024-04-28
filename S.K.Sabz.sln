@@ -21,15 +21,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistentce", "Persistentc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DCE94A56-529B-474F-B4B3-5B0B90D6B7DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.K.Sabz.Persistence", "S.K.Sabz.Persistence\S.K.Sabz.Persistence.csproj", "{04C1B548-6CB1-41FA-8268-FC3C70DB97FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.K.Sabz.Persistence", "S.K.Sabz.Persistence\S.K.Sabz.Persistence.csproj", "{04C1B548-6CB1-41FA-8268-FC3C70DB97FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.K.Sabz.Infrastructure", "S.K.Sabz.Infrastructure\S.K.Sabz.Infrastructure.csproj", "{E436ADBA-28BC-4B4F-A7AE-2033B52E5F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.K.Sabz.Infrastructure", "S.K.Sabz.Infrastructure\S.K.Sabz.Infrastructure.csproj", "{E436ADBA-28BC-4B4F-A7AE-2033B52E5F08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.K.Sabz.Application", "S.K.Sabz.Application\S.K.Sabz.Application.csproj", "{6F68491D-1A9B-41B4-A8F0-46376DCE5E0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.K.Sabz.Application", "S.K.Sabz.Application\S.K.Sabz.Application.csproj", "{6F68491D-1A9B-41B4-A8F0-46376DCE5E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.K.Sabz.Domain", "S.K.Sabz.Domain\S.K.Sabz.Domain.csproj", "{0FCE2B5C-8C3D-42A8-B81F-F7F5E8CCC388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.K.Sabz.Domain", "S.K.Sabz.Domain\S.K.Sabz.Domain.csproj", "{0FCE2B5C-8C3D-42A8-B81F-F7F5E8CCC388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.K.Sabz.Common", "S.K.Sabz.Common\S.K.Sabz.Common.csproj", "{6CC38D1E-C567-4807-A0DF-A6EDFF897324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.K.Sabz.Common", "S.K.Sabz.Common\S.K.Sabz.Common.csproj", "{6CC38D1E-C567-4807-A0DF-A6EDFF897324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +67,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA00B79A-327A-4F54-A846-78DC23BDBCF6} = {DCE94A56-529B-474F-B4B3-5B0B90D6B7DB}
+		{F00A5265-798F-4C71-834A-7AE323B91546} = {92F87052-89E7-491F-9FE4-852F56EAD91D}
 		{8EF87715-39D8-4E43-A565-ACB7995AB7D6} = {92F87052-89E7-491F-9FE4-852F56EAD91D}
 		{190DA46C-56B6-4530-958B-E6DABB55A795} = {92F87052-89E7-491F-9FE4-852F56EAD91D}
 		{AE08B207-072B-43F7-B2E9-EB90E4B149D6} = {92F87052-89E7-491F-9FE4-852F56EAD91D}
