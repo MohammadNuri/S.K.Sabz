@@ -15,11 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="Interfaces\Common\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\S.K.Sabz.Common\S.K.Sabz.Common.csproj" />
     <ProjectReference Include="..\S.K.Sabz.Domain\S.K.Sabz.Domain.csproj" />
   </ItemGroup>
 

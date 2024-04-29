@@ -1,0 +1,384 @@
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
+@model List<AllCategoriesDto>
+<link href="/AdminTemplate/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--begin::اصلی-->
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<!--begin::Toolbar container-->
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<!--begin::Page title-->
+				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+					<!--begin::Title-->
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">دسته بندی ها</h1>
+					<!--end::Title-->
+					<!--begin::Breadcrumb-->
+					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+						<!--begin::item-->
+						<li class="breadcrumb-item text-muted">
+							<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">خانه</a>
+						</li>
+						<!--end::item-->
+						<!--begin::item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::item-->
+						<!--begin::item-->
+						<li class="breadcrumb-item text-muted">تجارت</li>
+						<!--end::item-->
+						<!--begin::item-->
+						<li class="breadcrumb-item">
+							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						</li>
+						<!--end::item-->
+						<!--begin::item-->
+						<li class="breadcrumb-item text-muted">کاتالوگ</li>
+						<!--end::item-->
+					</ul>
+					<!--end::Breadcrumb-->
+				</div>
+				<!--end::Page title-->
+			</div>
+			<!--end::Toolbar container-->
+		</div>
+		<!--end::Toolbar-->
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::دسته بندی-->
+				<div class="card card-flush">
+					<!--begin::کارت header-->
+					<div class="card-header align-items-center py-5 gap-2 gap-md-5">
+						<!--begin::کارت title-->
+						<div class="card-title">
+							<!--begin::جستجو-->
+							<div class="d-flex align-items-center position-relative my-1">
+								<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>
+								<input type="text" data-kt-ecommerce-category-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="جستجو دسته بندی" />
+							</div>
+							<!--end::جستجو-->
+						</div>
+						<!--end::کارت title-->
+						<!--begin::کارت toolbar-->
+						<div class="card-toolbar">
+							<!--begin::افزودن customer-->
+							<a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">افزودن دسته بندی</a>
+							<!--end::افزودن customer-->
+						</div>
+						<!--end::کارت toolbar-->
+					</div>
+					<!--end::کارت header-->
+					<!--begin::کارت body-->
+					<div class="card-body pt-0">
+						<!--begin::Table-->
+						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_category_table">
+							<thead>
+								<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+									<th class="w-10px pe-2">
+										<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_category_table .form-check-input" value="1" />
+										</div>
+									</th>
+									<th class="min-w-250px">نام دسته بندی</th>
+									<th class="min-w-150px">نام فرزند ها</th>
+									<th class="text-end min-w-70px">عملیات</th>
+								</tr>
+							</thead>
+							<tbody class="fw-semibold text-gray-600">
+								@if (Model != null && Model.Any())
+								{
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>
+												<div class="form-check form-check-sm form-check-custom form-check-solid">
+													<input class="form-check-input" type="checkbox" value="1" />
+												</div>
+											</td>
+											<td>
+												<div class="d-flex">
+													<div class="ms-5">
+														<!--begin::Title-->
+														<a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" data-kt-ecommerce-category-filter="category_name">@item.Name</a>
+														<!--end::Title-->
+														@* 												<!--begin::توضیحات-->
+												<div class="text-muted fs-7 fw-bold">رایانه ها و تبلت های ما شامل همه برندهای بزرگ است.</div>
+												<!--end::توضیحات--> *@
+													</div>
+												</div>
+											</td>
+											<td>
+												<!--begin::Badges-->
+												<div class="badge badge-light-success">لیست فرزند ها</div>
+												<!--end::Badges-->
+											</td>
+											<td class="text-end">
+												<a href="#" class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+													عملیات
+													<i class="ki-duotone ki-down fs-5 ms-1"></i>
+												</a>
+												<!--begin::Menu-->
+												<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row">افزودن فرزند</a>
+													</div>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row">مدیریت فرزند ها</a>
+													</div>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row" onclick="DeleteCategory('@item.Id')">حذف</a>
+													</div>
+													<!--end::Menu item-->
+												</div>
+												<!--end::Menu-->
+											</td>
+										</tr>
+									}
+								}
+								else
+								{
+									<p>No categories found!</p>
+								}
+
+										
+
+
+								
+							</tbody>
+							<!--end::Table body-->
+						</table>
+						<!--end::Table-->
+					</div>
+					<!--end::کارت body-->
+				</div>
+				<!--end::دسته بندی-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<!--end:::اصلی-->
+
+@section Scripts
+{
+	<script src="/AdminTemplate/assets/js/widgets.bundle.js"></script>
+	<script src="/AdminTemplate/assets/js/custom/widgets.js"></script>
+	<script src="/AdminTemplate/assets/js/custom/apps/chat/chat.js"></script>
+	<script src="/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+	<script src="/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
+	@* <script src="/AdminTemplate/assets/js/custom/utilities/modals/new-target.js"></script> *@
+	<script src="/AdminTemplate/assets/js/custom/utilities/modals/users-search.js"></script>
+	<script src="assets/js/custom/utilities/modals/create-campaign.js"></script>
+	<link href="/AdminTemplate/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+	<script src="/AdminTemplate/assets/sweetalert2/sweetalert2.min.js"></script>
+
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			// Get references to elements
+			const modal = document.getElementById("kt_modal_new_target");
+			const nameInput = document.getElementById("nameInput");
+			// ... other input references
+
+			const submitButton = document.getElementById("kt_modal_new_target_submit");
+
+			submitButton.addEventListener("click", function (e) {
+				e.preventDefault(); // Prevent default form submission
+
+				const name = nameInput.value;
+				// ... get values from other inputs
+
+				// Create a new FormData object
+				const formData = new FormData();
+				formData.append("name", name);
+				// ... append other data to FormData
+
+				// Send data using AJAX with FormData
+				$.ajax({
+					url: "/Admin/Categories/AddNewCategory", // Replace with your actual controller action URL
+					method: "POST",
+					data: formData,
+					processData: false, // Don't process data automatically with FormData
+					contentType: false, // Set content type to undefined for FormData
+					success: function (data) {
+						console.log("Data sent successfully:", data);
+						Swal.fire({
+							text: "دسته‌بندی با موفقیت ایجاد شد!", // Success message in Farsi
+							icon: "success",
+							buttonsStyling: !1,
+							confirmButtonText: "باشه", // Confirmation button text in Farsi
+							customClass: { confirmButton: "btn btn-primary" },
+						}).then(() => {
+							// Reload the page after confirmation
+							window.location.reload();
+						});
+					},
+					error: function (error) {
+						console.error("Error sending data:", error);
+						// Handle errors (e.g., display error message)
+						Swal.fire({
+							text: "متأسفیم ، خطایی رخ داد!",
+							icon: "error",
+							buttonsStyling: !1,
+							confirmButtonText: "باشه فهمیدم!",
+							customClass: { confirmButton: "btn btn-primary" },
+						});
+					},
+				});
+			});
+		});
+
+	</script>
+
+	<script>
+		function DeleteCategory(CatId) {
+			swal.fire({
+				title: 'حذف دسته بندی',
+				text: "کاربر گرامی از حذف دسته بندی مطمئن هستید؟",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				cancelButtonColor: '#7cacbe',
+				confirmButtonText: 'بله ، دسته بندی حذف شود',
+				cancelButtonText: 'خیر'
+			}).then((result) => {
+				if (result.value) {
+					var postData = {
+						'CatId': CatId,
+					};
+
+					$.ajax({
+						contentType: 'application/x-www-form-urlencoded',
+						dataType: 'json',
+						type: "POST",
+						url: "/Admin/Categories/DeleteCategory",
+						data: postData,
+						success: function (data) {
+							if (data.isSuccess == true) {
+								swal.fire(
+									'موفق!',
+									data.message,
+									'success'
+								).then(function (isConfirm) {
+									location.reload();
+								});
+							}
+							else {
+
+								swal.fire(
+									'هشدار!',
+									data.message,
+									'warning'
+								);
+
+							}
+						},
+						error: function (request, status, error) {
+							alert(request.responseText);
+						}
+
+					});
+
+				}
+			})
+		}
+	</script>
+
+
+}
+
+@section Modals
+{
+	<!--begin::Modal - هدف جدید-->
+	<div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
+		<!--begin::Modal dialog-->
+		<div class="modal-dialog modal-dialog-centered mw-650px">
+			<!--begin::Modal content-->
+			<div class="modal-content rounded">
+				<!--begin::Modal header-->
+				<div class="modal-header pb-0 border-0 justify-content-end">
+					<!--begin::Close-->
+					<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<i class="ki-duotone ki-cross fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+						</i>
+					</div>
+					<!--end::Close-->
+				</div>
+				<!--begin::Modal header-->
+				<!--begin::Modal body-->
+				<div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+					<!--begin:Form-->
+					<form id="kt_modal_new_target_form" class="form" action="#">
+						<!--begin::Heading-->
+						<div class="mb-13 text-center">
+							<!--begin::Title-->
+							<h1 class="mb-3">ثبت دسته بندی جدید</h1>
+							<!--end::Title-->
+							<!--begin::توضیحات-->
+							<div class="text-muted fw-semibold fs-5">
+								لطفا نام دسته بندی را به دقت وارد کنید
+							</div>
+							<!--end::توضیحات-->
+						</div>
+						<!--end::Heading-->
+						<!--begin::Input group-->
+						<div class="d-flex flex-column mb-8 fv-row">
+							<!--begin::Tags-->
+							<label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+								<span class="required">عنوان دسته بندی</span>
+								<span class="ms-1" data-bs-toggle="tooltip" title="یک نام برای دسته بندی انتخاب کنید">
+									<i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+										<span class="path1"></span>
+										<span class="path2"></span>
+										<span class="path3"></span>
+									</i>
+								</span>
+							</label>
+							<!--end::Tags-->
+
+							<input type="text" id="nameInput" class="form-control form-control-solid" placeholder="عنوان" name="Name" />
+							<br />
+							<br />
+							<br />
+						<!--begin::Actions-->
+						<div class="text-center">
+							<button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3">انصراف</button>
+							<button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+								<span class="indicator-label">ثبت</span>
+								<span class="indicator-progress">
+									لطفا صبر کنید...
+									<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+								</span>
+							</button>
+						</div>
+						<!--end::Actions-->
+					</form>
+					<!--end:Form-->
+				</div>
+				<!--end::Modal body-->
+			</div>
+			<!--end::Modal content-->
+		</div>
+		<!--end::Modal dialog-->
+	</div>
+	<!--end::Modal - هدف جدید-->
+}

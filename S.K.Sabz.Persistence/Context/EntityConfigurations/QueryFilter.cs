@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using S.K.Sabz.Domain.Entities.Blog;
 using S.K.Sabz.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace S.K.Sabz.Persistence.Context.EntityConfigurations
             modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<UserInRole>().HasQueryFilter(p => !p.IsRemoved);
-        }
+			modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
+		}
     }
 }

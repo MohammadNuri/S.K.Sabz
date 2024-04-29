@@ -22,6 +22,43 @@ namespace S.K.Sabz.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CategoryPicUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ParentCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.Role", b =>
                 {
                     b.Property<long>("Id")
@@ -54,7 +91,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 4, 28, 14, 57, 50, 375, DateTimeKind.Local).AddTicks(328),
+                            InsertTime = new DateTime(2024, 4, 29, 18, 39, 49, 426, DateTimeKind.Local).AddTicks(2377),
                             IsRemoved = false,
                             Name = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -62,7 +99,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 4, 28, 14, 57, 50, 375, DateTimeKind.Local).AddTicks(371),
+                            InsertTime = new DateTime(2024, 4, 29, 18, 39, 49, 426, DateTimeKind.Local).AddTicks(2426),
                             IsRemoved = false,
                             Name = "Patient",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -70,7 +107,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 4, 28, 14, 57, 50, 375, DateTimeKind.Local).AddTicks(385),
+                            InsertTime = new DateTime(2024, 4, 29, 18, 39, 49, 426, DateTimeKind.Local).AddTicks(2439),
                             IsRemoved = false,
                             Name = "Customer",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -185,6 +222,15 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.ToTable("UserInRoles");
                 });
 
+            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>
+                {
+                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.Category", "ParentCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
+                });
+
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.UserInRole", b =>
                 {
                     b.HasOne("S.K.Sabz.Domain.Entities.Users.Role", "Role")
@@ -202,6 +248,11 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>
+                {
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.Role", b =>

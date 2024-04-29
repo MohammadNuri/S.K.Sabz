@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.AuthScheme.PoP;
 using S.K.Sabz.Application.Interfaces.Context;
+using S.K.Sabz.Domain.Entities.Blog;
 using S.K.Sabz.Domain.Entities.Users;
 using S.K.Sabz.Persistence.Context.EntityConfigurations;
 using System;
@@ -18,9 +20,10 @@ namespace S.K.Sabz.Persistence.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserInRole> UserInRoles { get; set; }
+		public DbSet<Category> Categories { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             //--Seed Data

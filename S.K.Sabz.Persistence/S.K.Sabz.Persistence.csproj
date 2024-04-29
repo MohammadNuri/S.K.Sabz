@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migration\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\S.K.Sabz.Application\S.K.Sabz.Application.csproj" />
     <ProjectReference Include="..\S.K.Sabz.Common\S.K.Sabz.Common.csproj" />
     <ProjectReference Include="..\S.K.Sabz.Domain\S.K.Sabz.Domain.csproj" />
