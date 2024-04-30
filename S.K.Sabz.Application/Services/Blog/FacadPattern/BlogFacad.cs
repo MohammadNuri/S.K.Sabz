@@ -3,6 +3,7 @@ using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
+using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,16 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 			get
 			{
 				return _removeCategoryService = _removeCategoryService ?? new RemoveCategoryService(_context);
+			}
+		}
+
+
+		private IGetCategoryService _getCategory;
+		public IGetCategoryService GetCategoryService
+		{
+			get
+			{
+				return _getCategory = _getCategory ?? new GetCategoryService(_context);
 			}
 		}
 

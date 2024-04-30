@@ -14,7 +14,8 @@ namespace S.K.Sabz.Persistence.Context.EntityConfigurations
         public static void ApplyQueryFilter(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
-            modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
+			modelBuilder.Entity<UserInfo>().HasQueryFilter(p => !p.IsRemoved);
+			modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<UserInRole>().HasQueryFilter(p => !p.IsRemoved);
 			modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
 		}

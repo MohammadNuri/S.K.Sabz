@@ -12,7 +12,7 @@ namespace S.K.Sabz.Persistence.Context.EntityConfigurations
     {
         public static void HasIndex(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<UserInfo>().HasIndex(u => u.Email).IsUnique();
         }
     }
 }

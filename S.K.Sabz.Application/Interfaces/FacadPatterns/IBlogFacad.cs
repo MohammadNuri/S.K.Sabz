@@ -2,6 +2,7 @@
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
+using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
 	    AddNewCategoryService AddNewCategoryService { get; }
     	IGetAllCategoriesService GetAllCategoriesService { get; }
 		IRemoveCategoryService RemoveCategoryService { get; }
+		IGetCategoryService GetCategoryService { get; }
 	}
 
 }

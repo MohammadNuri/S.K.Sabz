@@ -1,4 +1,5 @@
-﻿using System;
+﻿using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories
 	{
 		public long Id { get; set; }
 		public string Name { get; set; } = string.Empty;
+		public List<CategoriesDto> ChildCategories { get; set; }
 	}
 }

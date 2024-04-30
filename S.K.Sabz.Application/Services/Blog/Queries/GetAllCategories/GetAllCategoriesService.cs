@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using S.K.Sabz.Application.Interfaces.Context;
+using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using S.K.Sabz.Common.Dto;
 using System;
 using System.Collections.Generic;
@@ -20,22 +21,33 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories
 
 		public ResultDto<List<AllCategoriesDto>> Execute()
 		{
-			var categories = _context
-				.Categories
+			var parentCategories = _context.Categories
 				.Include(p => p.ParentCategory)
+				.Include(p => p.SubCategories)
+				.Where(p => p.ParentCategory == null) // Filter only parent categories
 				.ToList()
 				.Select(p => new AllCategoriesDto
 				{
 					Id = p.Id,
-					Name = p.ParentCategory != null ? $"{p.ParentCategory.Name} - {p.Name}" : p.Name, // Handle null ParentCategory
-				})
-				.ToList();
+					Name = p.Name,
+					ChildCategories = p.SubCategories.Select(c => new CategoriesDto
+					{
+						Id = c.Id,
+						Name = c.Name,
+						Parent = new ParentCategoryDto // Set parent category for child
+						{
+							Id = p.Id,
+							Name = p.Name
+						},
+						HasChild = c.SubCategories.Any()
+					}).ToList()
+				}).ToList();
 
 			return new ResultDto<List<AllCategoriesDto>>
 			{
-				Data = categories,
+				Data = parentCategories,
 				IsSuccess = true,
-				Message = "",
+				Message = "لیست باموقیت برگشت داده شد"
 			};
 		}
 

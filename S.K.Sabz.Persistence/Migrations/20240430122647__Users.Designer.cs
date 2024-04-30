@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S.K.Sabz.Persistence.Context;
 
@@ -11,9 +12,11 @@ using S.K.Sabz.Persistence.Context;
 namespace S.K.Sabz.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240430122647__Users")]
+    partial class _Users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +94,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 4, 30, 16, 6, 58, 849, DateTimeKind.Local).AddTicks(8379),
+                            InsertTime = new DateTime(2024, 4, 30, 15, 56, 45, 633, DateTimeKind.Local).AddTicks(4786),
                             IsRemoved = false,
                             Name = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -99,7 +102,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 4, 30, 16, 6, 58, 849, DateTimeKind.Local).AddTicks(8425),
+                            InsertTime = new DateTime(2024, 4, 30, 15, 56, 45, 633, DateTimeKind.Local).AddTicks(4835),
                             IsRemoved = false,
                             Name = "Patient",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -107,7 +110,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 4, 30, 16, 6, 58, 849, DateTimeKind.Local).AddTicks(8439),
+                            InsertTime = new DateTime(2024, 4, 30, 15, 56, 45, 633, DateTimeKind.Local).AddTicks(4855),
                             IsRemoved = false,
                             Name = "Customer",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -122,10 +125,6 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("InsertTime")
                         .HasColumnType("datetime2");
 
@@ -134,10 +133,6 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("PhoneNumber")
                         .HasColumnType("bigint");
@@ -226,6 +221,10 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.Property<string>("FieldOfStudy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
@@ -248,6 +247,10 @@ namespace S.K.Sabz.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Job")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

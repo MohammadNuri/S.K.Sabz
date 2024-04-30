@@ -12,7 +12,8 @@ namespace S.K.Sabz.Application.Interfaces.Context
     public interface IDataBaseContext
     {
         DbSet<User> Users { get; set; }
-        DbSet<Role> Roles { get; set; }
+		DbSet<UserInfo> UsersInfo { get; set; }
+		DbSet<Role> Roles { get; set; }
         DbSet<UserInRole> UserInRoles { get; set; }
 		DbSet<Category> Categories { get; set; }
 
