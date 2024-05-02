@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.FacadPattern;
 using S.K.Sabz.Application.Services.Common;
+using S.K.Sabz.Application.Services.Users.Commands;
 using S.K.Sabz.Application.Services.Users.FacadPattern;
 using S.K.Sabz.Common.Roles;
 using S.K.Sabz.Persistence.Context;
@@ -51,6 +53,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBlogFacad, BlogFacad>();
 builder.Services.AddScoped<IUserFacad, UserFacad>();
+builder.Services.AddScoped<IAddUserInfoService, AddUserInfoService>();
 
 
 

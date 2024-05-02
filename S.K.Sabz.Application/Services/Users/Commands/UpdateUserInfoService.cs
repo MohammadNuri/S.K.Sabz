@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace S.K.Sabz.Application.Services.Users.Commands
 {
-    public class UpdateUserInfoService
+    public class UpdateUserInfoService : IUpdateUserInfoService
     {
         private readonly IDataBaseContext _context;
         public UpdateUserInfoService(IDataBaseContext context)
@@ -17,7 +17,7 @@ namespace S.K.Sabz.Application.Services.Users.Commands
             _context = context;
         }
 
-        public async Task<ResultDto> UpdateUserInfoAsync(int userId, UserInfoDto userInfo)
+        public async Task<ResultDto> UpdateUserInfoAsync(long userId, UserInfoDto userInfo)
         {
             var user = await _context.Users.FindAsync(userId);
 
@@ -33,7 +33,7 @@ namespace S.K.Sabz.Application.Services.Users.Commands
 
             await _context.SaveChangesAsync();
 
-            return new ResultDto { IsSuccess = true, Message = "User information updated successfully." };
+            return new ResultDto { IsSuccess = true, Message = "با موفقیت ثبت شد" };
         }
 
     }

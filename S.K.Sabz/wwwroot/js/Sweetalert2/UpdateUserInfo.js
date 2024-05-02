@@ -1,14 +1,15 @@
-﻿
-function Login(event) {
+﻿function UpdateUserInfo(event) {
     // Prevent the default form submission behavior
     event.preventDefault();
 
-    // Get the phone number from the input field
-    var PhoneNumber = $("#PhoneNumber").val();
+    // Get the name from the input field
+    var FirstName = $("#FirstName").val();
+    var LastName = $("#LastName").val();
 
-    // Create an object with the phone number
+    // Create an object with the name
     var postData = {
-        'PhoneNumber': PhoneNumber
+        'FirstName': FirstName,
+        'LastName': LastName
     };
 
     // Log the data being sent
@@ -30,7 +31,7 @@ function Login(event) {
         contentType: 'application/x-www-form-urlencoded',
         dataType: 'json',
         type: "POST",
-        url: "/Authentication/Login",
+        url: "/Authentication/UpdateUserInfo",
         data: postData,
         success: function (data) {
             // Log the response data
@@ -48,7 +49,7 @@ function Login(event) {
                     'success'
                 ).then(function (isConfirm) {
                     // Redirect the user to the main page after dismissing the alert
-                    window.location.replace("/");
+                    window.location.replace("/Authentication/UserInfo");
                 });
             } else {
                 // Dismiss the loading spinner

@@ -1,4 +1,5 @@
-﻿using S.K.Sabz.Application.Interfaces.FacadPatterns;
+﻿using S.K.Sabz.Application.Interfaces.Context;
+using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Common.Dto;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace S.K.Sabz.Application.Services.Users.Commands
     {
 
         private readonly IUserFacad _userFacad;
-
         public AddUserInfoService(IUserFacad userFacad)
         {
+
             _userFacad = userFacad;
         }
 
@@ -26,9 +27,9 @@ namespace S.K.Sabz.Application.Services.Users.Commands
 
             user.FirstName = userInfo.FirstName;
             user.LastName = userInfo.LastName;
-            await _userFacad.UpdateUserInfo.UpdateUserInfoAsync(userId, userInfo);
+            await _userFacad.UpdateUserInfoService.UpdateUserInfoAsync(userId, userInfo);
 
-            return new ResultDto { IsSuccess = true, Message = "User information updated successfully." };
+            return new ResultDto { IsSuccess = true, Message = "با موفقیت ثبت شد" };
         }
     }
 }

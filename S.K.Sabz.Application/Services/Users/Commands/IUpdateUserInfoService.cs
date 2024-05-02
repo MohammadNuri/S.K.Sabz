@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace S.K.Sabz.Application.Services.Users.Commands
 {
-    public interface ILoginUserService
-    {
-		ResultDto<ResultUserDto> LoginExecute(LoginUserDto request);
-
+	public interface IUpdateUserInfoService
+	{
+		Task<ResultDto> UpdateUserInfoAsync(long userId, UserInfoDto userInfo);
 	}
-
 }

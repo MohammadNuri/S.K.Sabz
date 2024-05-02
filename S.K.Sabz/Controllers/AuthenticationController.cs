@@ -16,10 +16,12 @@ namespace S.K.Sabz.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUserFacad _userFacad;
+        private readonly IAddUserInfoService _addUserInfoService;
 
-        public AuthenticationController(IUserFacad userFacad)
+        public AuthenticationController(IUserFacad userFacad, IAddUserInfoService addUserInfoService)
         {
             _userFacad = userFacad;
+            _addUserInfoService = addUserInfoService;
         }
 
         [HttpGet]
@@ -78,41 +80,63 @@ namespace S.K.Sabz.Controllers
         }
 
 
-    //    [HttpPost]
-    //    public IActionResult UserInfo(UserInfoViewModel userInfo)
-    //    {
-    //        // Update user information in the database
+        [HttpPost]
+		public async Task<IActionResult> UpdateUserInfoAsync(UserInfoViewModel userInfo)
+		{
+			// Get the user ID from the authenticated user's claims
+			var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+			if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+			{
+				// Handle the case where the user ID is not found or cannot be parsed
+				// For simplicity, let's assume a generic error message for now
+				return View("Error");
+			}
 
+			// Convert UserInfoViewModel to UserInfoDto
+			var userInfoDto = new UserInfoDto
+			{
+				FirstName = userInfo.FirstName,
+				LastName = userInfo.LastName
+				// Assign other properties as needed
+			};
 
+			// Update user information in the database
+			var updateUserInfoResult = await _addUserInfoService.UpdateUserInfoExecuteAsync(userId, userInfoDto);
 
+			// Check if the update was successful
+			if (!updateUserInfoResult.IsSuccess)
+			{
+				// Handle the case where the update failed, maybe return an error view
+				// For simplicity, let's assume a generic error message for now
+				return View("Error");
+			}
+			// Update claims
+			var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, userIdClaim.Value.ToString()),
+            new Claim(ClaimTypes.Name, userIdClaim.Subject.Name),
+            new Claim(ClaimTypes.GivenName, userInfo.FirstName),
+            new Claim(ClaimTypes.Surname, userInfo.LastName)
+        };
 
-    //        // Update claims
-    //        var claims = new List<Claim>
-    //{
-    //    new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
-    //    new Claim(ClaimTypes.Name, request.PhoneNumber),
-    //    new Claim(ClaimTypes.GivenName, userInfo.FirstName),
-    //    new Claim(ClaimTypes.Surname, userInfo.LastName)
-    //};
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            var properties = new AuthenticationProperties
+            {
+                IsPersistent = true
+            };
 
-    //        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-    //        var principal = new ClaimsPrincipal(identity);
-    //        var properties = new AuthenticationProperties
-    //        {
-    //            IsPersistent = true
-    //        };
+            HttpContext.SignInAsync(principal, properties).Wait();
 
-    //        HttpContext.SignInAsync(principal, properties).Wait();
+            return Json(updateUserInfoResult);
+        }
 
-    //        return RedirectToAction("Index", "Home"); // Redirect to home page after updating info
-    //    }
+        public IActionResult CustomSignOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-    //    public IActionResult CustomSignOut()
-    //    {
-    //        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-    //        return RedirectToAction("Login", "Authentication");
-    //    }
+            return RedirectToAction("Login", "Authentication");
+        }
 
     }
 }

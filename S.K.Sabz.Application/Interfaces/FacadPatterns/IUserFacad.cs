@@ -12,7 +12,7 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
     public interface IUserFacad
     {
         LoginUserService LoginUserService { get; }
-        GetUserById GetUserById {  get; }   
-        UpdateUserInfoService UpdateUserInfo { get; }  
-    }
+        IGetUserById GetUserById {  get; }
+        UpdateUserInfoService UpdateUserInfoService { get; }
+	}
 }

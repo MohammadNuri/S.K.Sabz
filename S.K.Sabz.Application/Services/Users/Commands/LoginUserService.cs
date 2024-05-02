@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace S.K.Sabz.Application.Services.Users.Commands
 {
-    public class LoginUserService
+    public class LoginUserService : ILoginUserService
     {
         private readonly IDataBaseContext _context;
         public LoginUserService(IDataBaseContext context)

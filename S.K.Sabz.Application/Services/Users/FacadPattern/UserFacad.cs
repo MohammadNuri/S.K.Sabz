@@ -13,12 +13,14 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
 {
     public class UserFacad : IUserFacad
     {
+
         //--Inject DataBase
         private readonly IDataBaseContext _context;
         public UserFacad(IDataBaseContext context)
         {
             _context = context;
         }
+
 
         //--Inject AddNewCategoryService
         private LoginUserService _loginUserService;
@@ -30,8 +32,8 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
             }
         }
 
-        private GetUserById _getUserById;
-        public GetUserById GetUserById
+        private IGetUserById _getUserById;
+        public IGetUserById GetUserById
         {
             get
             {
@@ -39,14 +41,13 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
             }
         }
 
-        private UpdateUserInfoService _updateUserInfo;
-        public UpdateUserInfoService UpdateUserInfo
-        {
+        private UpdateUserInfoService _updateUserInfoService;
+        public UpdateUserInfoService UpdateUserInfoService
+		{
             get
             {
-                return _updateUserInfo = _updateUserInfo ?? new UpdateUserInfoService(_context);
+                return _updateUserInfoService = _updateUserInfoService ?? new UpdateUserInfoService(_context);
             }
         }
-
     }
 }
