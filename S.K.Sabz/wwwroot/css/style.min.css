@@ -2448,8 +2448,13 @@ p {
 }
 .section {
 overflow-x: hidden;
-padding:0px 0; /*padding: 100px 0 (Last Edit)*/
+padding:100px 0;
 position: relative;
+}
+.sectionCustomMainPage {
+    overflow-x: hidden;
+    padding: 0px 0;
+    position: relative;
 }
 @media (max-width: 768px) {
 .section {

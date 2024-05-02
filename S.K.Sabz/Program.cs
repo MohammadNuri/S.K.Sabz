@@ -4,6 +4,7 @@ using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.FacadPattern;
 using S.K.Sabz.Application.Services.Common;
+using S.K.Sabz.Application.Services.Users.FacadPattern;
 using S.K.Sabz.Common.Roles;
 using S.K.Sabz.Persistence.Context;
 
@@ -49,6 +50,7 @@ builder.Services.AddAuthorization(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBlogFacad, BlogFacad>();
+builder.Services.AddScoped<IUserFacad, UserFacad>();
 
 
 
