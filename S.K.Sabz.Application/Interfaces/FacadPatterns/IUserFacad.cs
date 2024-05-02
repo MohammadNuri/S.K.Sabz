@@ -1,6 +1,6 @@
 ﻿using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Users.Commands;
-using S.K.Sabz.Application.Services.Users.Queries;
+using S.K.Sabz.Application.Services.Users.Queries.GetUserById;
 using System;
 using System.Collections.Generic;
 using System.Linq;

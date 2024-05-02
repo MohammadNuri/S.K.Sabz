@@ -6,7 +6,9 @@ using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.FacadPattern;
 using S.K.Sabz.Application.Services.Common;
 using S.K.Sabz.Application.Services.Users.Commands;
+using S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo;
 using S.K.Sabz.Application.Services.Users.FacadPattern;
+using S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber;
 using S.K.Sabz.Common.Roles;
 using S.K.Sabz.Persistence.Context;
 
@@ -54,6 +56,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBlogFacad, BlogFacad>();
 builder.Services.AddScoped<IUserFacad, UserFacad>();
 builder.Services.AddScoped<IAddUserInfoService, AddUserInfoService>();
+builder.Services.AddScoped<ICheckUserInfoService, CheckUserInfoService>();
+builder.Services.AddScoped<IGetUserIdByPhoneNumberSerivce, GetUserIdByPhoneNumberSerivce>();
 
 
 

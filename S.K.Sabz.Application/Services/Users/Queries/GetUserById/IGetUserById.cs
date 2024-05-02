@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Queries
+namespace S.K.Sabz.Application.Services.Users.Queries.GetUserById
 {
-	public interface IGetUserById
-	{
-		Task<User> GetUserByIdAsync(long userId);
-	}
+    public interface IGetUserById
+    {
+        Task<User> GetUserByIdAsync(long userId);
+    }
 }

@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Users.Commands;
 using Azure.Core;
+using S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo;
+using S.K.Sabz.Domain.Entities.Users;
+using S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber;
 
 namespace S.K.Sabz.Controllers
 {
@@ -17,21 +20,28 @@ namespace S.K.Sabz.Controllers
     {
         private readonly IUserFacad _userFacad;
         private readonly IAddUserInfoService _addUserInfoService;
+        private readonly ICheckUserInfoService _checkUserInfoService;
+		private readonly IGetUserIdByPhoneNumberSerivce _getUserIdByPhoneNumberService;
 
-        public AuthenticationController(IUserFacad userFacad, IAddUserInfoService addUserInfoService)
-        {
-            _userFacad = userFacad;
-            _addUserInfoService = addUserInfoService;
-        }
+		public AuthenticationController(IUserFacad userFacad,
+			IAddUserInfoService addUserInfoService,
+			ICheckUserInfoService checkUserInfoService,
+			IGetUserIdByPhoneNumberSerivce getUserIdByPhoneNumberSerivce)
+		{
+			_userFacad = userFacad;
+			_addUserInfoService = addUserInfoService;
+			_checkUserInfoService = checkUserInfoService;
+			_getUserIdByPhoneNumberService = getUserIdByPhoneNumberSerivce;
+		}
 
-        [HttpGet]
+		[HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LoginUserViewModel request)
+        public async Task<IActionResult> Login(LoginUserViewModel request, long userId)
         {
             if (string.IsNullOrWhiteSpace(request.PhoneNumber) || request.PhoneNumber.Length < 10 || request.PhoneNumber.Length > 13)
             {
@@ -53,22 +63,55 @@ namespace S.K.Sabz.Controllers
 
             var userResult = _userFacad.LoginUserService.LoginExecute(loginDto); // Call the LoginExecute method
 
-            if (userResult.IsSuccess)
-            {
-                var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
-                new Claim(ClaimTypes.Name, request.PhoneNumber),
-            };
 
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-                var properties = new AuthenticationProperties
-                {
-                    IsPersistent = true
-                };
 
-                HttpContext.SignInAsync(principal, properties).Wait(); // Wait for the sign-in operation to complete
+			if (userResult.IsSuccess)
+			{
+				var loginUserDto = new LoginUserDto
+				{
+					PhoneNumber = request.PhoneNumber,
+				};
+
+				userId = await _getUserIdByPhoneNumberService.Execute(loginUserDto);
+
+				var checkUserInfo = await _checkUserInfoService.CheckUserInfoAsync(userId);
+
+				if (checkUserInfo.IsSuccess == false)
+				{
+					var firstClaims = new List<Claim>
+					{
+					   new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
+					   new Claim(ClaimTypes.Name, request.PhoneNumber),
+					};
+					var firstIdentity = new ClaimsIdentity(firstClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+					var firstPrincipal = new ClaimsPrincipal(firstIdentity);
+					var firstProperties = new AuthenticationProperties
+					{
+						IsPersistent = true
+					};
+
+					HttpContext.SignInAsync(firstPrincipal, firstProperties).Wait();
+
+					return Json(userResult);
+				}
+				else
+				{
+
+					var claims = new List<Claim>
+					 {
+					  new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
+					  new Claim(ClaimTypes.Name, request.PhoneNumber),
+					  new Claim(ClaimTypes.GivenName, checkUserInfo.Data.FirstName),
+					  new Claim(ClaimTypes.Surname, checkUserInfo.Data.LastName)
+						 };
+					var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+					var principal = new ClaimsPrincipal(identity);
+					var properties = new AuthenticationProperties
+					{
+						IsPersistent = true
+					};
+					HttpContext.SignInAsync(principal, properties).Wait();
+				}
             }
 
             return Json(userResult);
