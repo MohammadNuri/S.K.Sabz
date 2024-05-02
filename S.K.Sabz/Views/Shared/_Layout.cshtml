@@ -1,4 +1,4 @@
-﻿
+﻿@using System.Security.Claims
 
 
 <!---------------------------------------------Header---------------------------------------------->
@@ -95,8 +95,36 @@
                         <div class="dropdown dropdown-primary">
                             <button type="button" class="btn btn-icon btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-user align-middle icons"></i></button>
                             <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-3 py-3" style="width: 256px;">
-                                <a class="dropdown-item text-dark" href="/Authentication/UserInfo"><i class="uil uil-user align-middle me-1"></i>@User.Identity.Name                    <i class="uil uil-sign-in-alt align-middle me-1"></i></a>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    var givenNameClaim = User.FindFirst(ClaimTypes.GivenName);
+                                    var surnameClaim = User.FindFirst(ClaimTypes.Surname);
+
+                                    if (givenNameClaim != null && surnameClaim != null)
+                                    {
+                                        <a class="dropdown-item text-dark" >
+                                            <i class="uil uil-user align-middle me-1"></i> @givenNameClaim.Value @surnameClaim.Value
+                                        </a>
+                                    }
+
+                                    <a class="dropdown-item text-dark" >
+                                        <i class="uil uil-phone align-middle me-1"></i> @User.Identity.Name
+                                    </a>
+@*                                     <div class="d-flex justify-content-center mt-2">
+                                        <a href="/Authentication/UserInfo" class="btn btn-soft-info  me-2">ناحیه کاربری</a>
+                                    </div> *@
+                                    
+                                    @if (givenNameClaim == null || surnameClaim == null)
+                                    {
+                                        <div class="d-flex justify-content-center mt-2">
+                                            <a href="/Authentication/UserInfo" class="btn btn-soft-warning me-2">تکمیل اطلاعات</a>
+                                        </div>
+                                    }
+                                }
+                                
                                 <div class="dropdown-divider my-3 border-top"></div>
+                                <a class="dropdown-item text-dark" href="/Authentication/UserInfo"><i class="uil uil-sign-in-alt align-middle me-1"></i> ناحیه کاربری </a>
                                 <a class="dropdown-item text-dark" href="/Authentication/CustomSignOut"><i class="uil uil-sign-out-alt align-middle me-1"></i> خروج از حساب کاربری </a>
                             </div>
                         </div>

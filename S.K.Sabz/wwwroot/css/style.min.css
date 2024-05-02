@@ -1556,6 +1556,18 @@ small {
  font-weight:600;
  border-radius:6px
 }
+.btn.darvyxe.custom.btn {
+    padding: 8px 76px;
+    outline: none;
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 0px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    font-weight: 600;
+    border-radius: 6px
+}
+
 .btn:focus {
  -webkit-box-shadow:none !important;
  box-shadow:none !important
