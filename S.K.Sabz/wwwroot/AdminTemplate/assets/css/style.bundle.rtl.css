@@ -44960,6 +44960,9 @@ label.rating-label:hover ~ .rating-label > i, label.rating-label:hover ~ .rating
   justify-content: space-between;
   align-items: center;
 }
+.flex-stack2 {
+    align-items: center;
+}
 
 @media (min-width: 576px) {
   .flex-sm-root {

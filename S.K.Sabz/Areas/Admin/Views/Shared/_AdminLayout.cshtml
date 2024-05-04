@@ -3,7 +3,7 @@
 <!--begin::Head-->
 <head>
 	<base href="" />
-	<title>مدیریت برگ سبز</title>
+	<title>مدیریت مسیر سبز</title>
 	<meta charset="utf-8" />
 	<meta name="description" content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, حالت تیره, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
 	<meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -154,6 +154,46 @@
 															<span class="bullet bullet-dot"></span>
 														</span>
 														<span class="menu-title">مدیریت دسته بندی ها</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+											</div>
+											<!--end:Menu sub-->
+										</div>
+										<div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+											<!--begin:Menu link-->
+											<span class="menu-link">
+												<span class="menu-icon">
+													<i class="ki-duotone ki-rocket fs-2">
+														<span class="path1"></span>
+														<span class="path2"></span>
+													</i>
+												</span>
+												<span class="menu-title">پست ها</span>
+												<span class="menu-arrow"></span>
+											</span>
+											<!--end:Menu link-->
+											<!--begin:Menu sub-->
+											<div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="~/Admin/BlogList/Index">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">مدیریت پست ها</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="~/Admin/BlogList/AddNewPost">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">افزودن پست جدید *</span>
 													</a>
 													<!--end:Menu link-->
 												</div>
@@ -704,6 +744,43 @@
 										</div>
 										<!--end:Menu sub-->
 									</div>
+									<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+										<!--begin:Menu link-->
+										<span class="menu-link">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-basket fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+												</i>
+											</span>
+											<span class="menu-title">پست ها</span>
+											<span class="menu-arrow"></span>
+										</span>
+										<!--end:Menu link-->
+										<!--begin:Menu sub-->
+										<div class="menu-sub menu-sub-accordion">
+											<!--begin:Menu item-->
+											<div class="menu-item">
+												<!--begin:Menu link-->
+												<a class="menu-link" href="~/Admin/BlogList/Index">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">مدیریت پست ها</span>
+												</a>
+												<a class="menu-link" href="~/Admin/BlogList/AddNewPost">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">افزودن پست جدید *</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+										</div>
+										<!--end:Menu sub-->
+									</div>
 									<!--end:Menu item-->
 									<!--begin:Menu item-->
 									<div class="menu-item pt-5">
@@ -787,7 +864,6 @@
 										<!--end:Menu sub-->
 									</div>
 									<!--end:Menu item-->
-
 								</div>
 								<!--end::Menu-->
 							</div>
@@ -809,13 +885,11 @@
 					<!--end::Footer-->
 				</div>
 				<!--end::Sidebar-->
+
+
+				<!--Begin: :RenderBody-->
 				@RenderBody()
-
-
-
-
-
-
+				<!--End: :RenderBody-->
 			    
 				<div id="kt_app_footer" class="app-footer">
 					<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
@@ -833,26 +907,12 @@
 						</ul>
 					</div>
 				</div>
-			
-
-
-				
-
-
-
-
 			</div>
 			<!--end::Wrapper-->
 		</div>
 		<!--end::Page-->
 	</div>
 	<!--end::اپلیکیشن-->
-
-	
-	
-
-	<!--end::Modal - دعوت دوست-->
-	<!--end::Modals-->
 	<!--begin::Javascript-->
 	<script>var hostUrl = "~/AdminTemplate/assets/";</script>
 	<!--begin::Global Javascript Bundle(mandatory for all pages)-->
@@ -875,12 +935,12 @@
 	<script src="~/AdminTemplate/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 	<!--end::Vendors Javascript-->
 	<!--begin::سفارشی Javascript(used for this page only)-->
-	<script src="/AdminTemplate/assets/js/widgets.bundle.js"></script>
-	<script src="/AdminTemplate/assets/js/custom/widgets.js"></script>
-	<script src="/AdminTemplate/assets/js/custom/apps/chat/chat.js"></script>
-	<script src="/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-	<script src="/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
-
+	<script src="~/AdminTemplate/assets/js/widgets.bundle.js"></script>
+	<script src="~/AdminTemplate/assets/js/custom/widgets.js"></script>
+	<script src="~/AdminTemplate/assets/js/custom/apps/chat/chat.js"></script>
+	<script src="~/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+	<script src="~/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
+	<script src="~/js/custom/jquery-3.6.0.min.js"></script>
 	<script src="~/AdminTemplate/assets/js/custom/utilities/modals/users-search.js"></script>
 	<!--end::سفارشی Javascript-->
 	<!--end::Javascript-->
