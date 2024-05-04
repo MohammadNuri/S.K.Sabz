@@ -56,7 +56,7 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.Role", b =>
@@ -85,7 +85,7 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -149,7 +149,7 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.UserInRole", b =>
@@ -184,7 +184,7 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserInRoles");
+                    b.ToTable("UserInRoles", (string)null);
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.UserInfo", b =>
@@ -289,7 +289,7 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UsersInfo");
+                    b.ToTable("UsersInfo", (string)null);
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>

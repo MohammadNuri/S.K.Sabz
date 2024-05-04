@@ -1,4 +1,4 @@
-﻿using S.K.Sabz.Application.Services.Users.Commands;
+﻿using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Common.Dto;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber
 {
-	public interface IGetUserIdByPhoneNumberSerivce
+    public interface IGetUserIdByPhoneNumberSerivce
 	{
 		Task<long> Execute(LoginUserDto phoneNumber);
 	}

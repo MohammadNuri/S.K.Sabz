@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using S.K.Sabz.Application.Interfaces.Context;
-using S.K.Sabz.Application.Services.Users.Commands;
+using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber
 {
-	public class GetUserIdByPhoneNumberSerivce : IGetUserIdByPhoneNumberSerivce
+    public class GetUserIdByPhoneNumberSerivce : IGetUserIdByPhoneNumberSerivce
 	{
 		private readonly IDataBaseContext _context;
         public GetUserIdByPhoneNumberSerivce(IDataBaseContext context)

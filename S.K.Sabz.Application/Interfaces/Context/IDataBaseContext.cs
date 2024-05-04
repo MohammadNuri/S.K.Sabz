@@ -16,10 +16,15 @@ namespace S.K.Sabz.Application.Interfaces.Context
 		DbSet<Role> Roles { get; set; }
         DbSet<UserInRole> UserInRoles { get; set; }
 		DbSet<Category> Categories { get; set; }
+        DbSet<Post> Posts { get; set; }
+        DbSet<PostComment> PostComments { get; set; }
+        DbSet<PostImages> PostImages { get; set; }
+        DbSet<Slider1> Slider1 { get; set; }
+        DbSet<Slider2> Slider2 { get; set; }
 
 
 
-		int SaveChanges(bool acceptAllChangesOnSuccess);
+        int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken());
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());

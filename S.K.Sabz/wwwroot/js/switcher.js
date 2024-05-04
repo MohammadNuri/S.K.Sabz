@@ -9,11 +9,11 @@ function toggleSwitcher() {
 };
 
 function setColor(theme) {
-    document.getElementById('color-opt').href = './css/colors/' + theme + '.css';
+    document.getElementById('color-opt').href = '../css/colors/' + theme + '.css';
     toggleSwitcher(false);
 };
 
 function setTheme(theme) {
-    document.getElementById('theme-opt').href = './css/' + theme + '.min.css';
+    document.getElementById('theme-opt').href = '../css/' + theme + '.min.css';
     toggleSwitcher(false);
 };

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Commands
+namespace S.K.Sabz.Application.Services.Users.Commands.LoginUser
 {
     public interface ILoginUserService
     {
-		ResultDto<ResultUserDto> LoginExecute(LoginUserDto request);
+        ResultDto<ResultUserDto> LoginExecute(LoginUserDto request);
 
-	}
+    }
 
 }

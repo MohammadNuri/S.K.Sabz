@@ -1,5 +1,6 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
 using S.K.Sabz.Common.Dto;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Commands
+namespace S.K.Sabz.Application.Services.Users.Commands.AddUserInfo
 {
     public class AddUserInfoService : IAddUserInfoService
     {

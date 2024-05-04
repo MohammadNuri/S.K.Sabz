@@ -5,7 +5,7 @@ using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.FacadPattern;
 using S.K.Sabz.Application.Services.Common;
-using S.K.Sabz.Application.Services.Users.Commands;
+using S.K.Sabz.Application.Services.Users.Commands.AddUserInfo;
 using S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo;
 using S.K.Sabz.Application.Services.Users.FacadPattern;
 using S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber;

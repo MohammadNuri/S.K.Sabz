@@ -12,18 +12,18 @@
     <title>برگ سبز</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon -->
-    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="shortcut icon" href="~/images/favicon.ico">
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Icons -->
-    <link href="/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <link href="~/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/unicons.iconscout.com/release/v3.0.6/css/line.css">
     <!-- Slider -->
-    <link rel="stylesheet" href="../css/tiny-slider.css" />
+    <link rel="stylesheet" href="~/css/tiny-slider.css" />
     <!-- Main Css -->
-    <link href="/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
-    <link href="/css/colors/default.css" rel="stylesheet" id="color-opt">
-    <link href="/js/Sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <link href="~/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <link href="~/css/colors/default.css" rel="stylesheet" id="color-opt">
+    <link href="~/js/Sweetalert2/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,7 +56,7 @@
                             </button>
                             <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-3 py-0" style="width: 300px;">
                                 <form>
-                                    <input type="text" id="text" name="name" class="form-control border bg-white" placeholder="جستجو...">
+                                    <input type="text" class="form-control border bg-white" placeholder="جستجو...">
                                 </form>
                             </div>
                         </div>
@@ -468,28 +468,6 @@
                     </ul>
                 </div><!--end col-->
 
-                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                    <h5 class="text-light footer-head">خبرنامه </h5>
-                    <p class="mt-4">ثبت نام کنید و آخرین نکات را از طریق ایمیل دریافت کنید.</p>
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="foot-subscribe mb-3">
-                                    <label class="form-label">ایمیل خود را بنویسید <span class="text-danger">*</span></label>
-                                    <div class="form-icon position-relative">
-                                        <i data-feather="mail" class="fea icon-sm icons"></i>
-                                        <input type="email" name="email" id="emailsubscribe" class="form-control ps-5 rounded" placeholder="ایمیل شما: " required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="d-grid">
-                                    <input type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary" value="خبرنامه">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
     </footer><!--end footer-->
@@ -568,26 +546,32 @@
     </div>
     <!-- end Style switcher -->
     <!-- javascript -->
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/gumshoe.polyfills.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/gumshoe.polyfills.min.js"></script>
     <!-- SLIDER -->
-    <script src="/js/tiny-slider.js"></script>
+    <script src="~/js/tiny-slider.js"></script>
     <!-- Icons -->
-    <script src="/js/feather.min.js"></script>
+    <script src="~/js/feather.min.js"></script>
     <!-- Switcher -->
-    <script src="/js/switcher.js"></script>
+    <script src="~/js/switcher.js"></script>
     <!-- Main Js -->
-    <script src="/js/plugins.init.js"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
-    <script src="/js/app.js"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/Sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/plugins.init.js"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+    <script src="~/js/app.js"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+   @*  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+    <script src="~/js/custom/jquery-3.6.0.min.js"></script>
+    <script src="~/js/Sweetalert2/sweetalert2.min.js"></script>
+    <!-- Custom Js -->
+    <script src="~/js/custom/update.userInfo.js"></script>
+
+
     @RenderSection("Scripts", false)
     @RenderSection("Modals", false)
+
+
 </body>
 
 
 </html>
-
 
     <!---------------------------------------------End-Footer---------------------------------------------->
 

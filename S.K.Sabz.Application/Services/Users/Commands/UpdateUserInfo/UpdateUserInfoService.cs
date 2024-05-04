@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Commands
+namespace S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo
 {
     public class UpdateUserInfoService : IUpdateUserInfoService
     {

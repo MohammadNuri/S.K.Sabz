@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo
+namespace S.K.Sabz.Application.Services.Users.Commands.AddUserInfo
 {
-    public interface ICheckUserInfoService
+    public interface IAddUserInfoService
     {
-		Task<ResultDto<UserInfoDto>> CheckUserInfoAsync(long userId);
+        Task<ResultDto> UpdateUserInfoExecuteAsync(int userId, UserInfoDto userInfo);
 
-	}
+    }
 }

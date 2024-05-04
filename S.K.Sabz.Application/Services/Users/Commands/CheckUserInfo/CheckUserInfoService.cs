@@ -1,4 +1,6 @@
 ﻿using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
+using S.K.Sabz.Application.Services.Users.Queries.GetUserById;
 using S.K.Sabz.Common.Dto;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,6 @@ namespace S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo
 
         public async Task<ResultDto<UserInfoDto>> CheckUserInfoAsync(long userId)
         {
-
             var user = await _userFacad.GetUserById.GetUserByIdAsync(userId);
 
             if (user.FirstName == "" && user.LastName == "")

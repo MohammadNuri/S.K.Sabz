@@ -22,9 +22,14 @@ namespace S.K.Sabz.Persistence.Context
 		public DbSet<Role> Roles { get; set; }
         public DbSet<UserInRole> UserInRoles { get; set; }
 		public DbSet<Category> Categories { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<PostComment> PostComments { get; set; }
+        public DbSet<PostImages> PostImages { get; set; }
+        public DbSet<Slider1> Slider1 { get; set; }
+        public DbSet<Slider2> Slider2 { get; set; }
 
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             //--Seed Data

@@ -13,6 +13,9 @@ using Azure.Core;
 using S.K.Sabz.Application.Services.Users.Commands.CheckUserInfo;
 using S.K.Sabz.Domain.Entities.Users;
 using S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber;
+using S.K.Sabz.Application.Services.Users.Commands.AddUserInfo;
+using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
+using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
 
 namespace S.K.Sabz.Controllers
 {

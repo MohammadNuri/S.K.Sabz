@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S.K.Sabz.Application.Services.Users.Commands
+namespace S.K.Sabz.Application.Services.Users.Commands.LoginUser
 {
     public class LoginUserService : ILoginUserService
     {
