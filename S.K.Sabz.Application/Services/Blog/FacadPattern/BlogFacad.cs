@@ -1,6 +1,7 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
@@ -58,6 +59,15 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 			get
 			{
 				return _getCategory = _getCategory ?? new GetCategoryService(_context);
+			}
+		}
+
+		private AddNewPostService _addNewPostService;
+		public AddNewPostService AddNewPostService
+		{
+			get
+			{
+				return _addNewPostService = _addNewPostService ?? new AddNewPostService(_context);
 			}
 		}
 

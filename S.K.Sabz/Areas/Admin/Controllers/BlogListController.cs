@@ -1,10 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
+using S.K.Sabz.Application.Services.Common.ErrorHandling;
+using S.K.Sabz.Common;
+using S.K.Sabz.Common.Dto;
+using System.Security.Claims;
 
 namespace S.K.Sabz.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class BlogListController : Controller
     {
+        private readonly IBlogFacad _blogFacad;
+        public BlogListController(IBlogFacad blogFacad)
+        {
+            _blogFacad = blogFacad;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -18,10 +31,48 @@ namespace S.K.Sabz.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
         public IActionResult AddNewPost()
         {
-            return View();
+			// Fetch categories from the service
+			var categories = _blogFacad.GetAllCategoriesService.Execute().Data;
+
+			// Convert categories to SelectListItems
+			var categoryItems = categories.Select(c => new SelectListItem
+			{
+				Value = c.Id.ToString(), // Assuming Id is a long or int
+				Text = c.Name
+			});
+
+			// Store the SelectListItems in ViewBag
+			ViewBag.Categories = categoryItems;
+			return View();
         }
 
-    }
+		[HttpPost]
+		public async Task<IActionResult> AddNewPost(AddNewPostDto request)
+		{
+			var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (!long.TryParse(userIdString, out long userId))
+			{
+				return Ok();
+			}
+
+			List<IFormFile> images = new List<IFormFile>();
+			for (int i = 0; i < Request.Form.Files.Count; i++)
+			{
+				var file = Request.Form.Files[i];
+				images.Add(file);
+			}
+
+			request.Images = images;
+
+			// Execute asynchronously
+			var result = await _blogFacad.AddNewPostService.ExecuteAsync(request, userId);
+			return Json(result);
+
+
+		}
+
+	}
 }

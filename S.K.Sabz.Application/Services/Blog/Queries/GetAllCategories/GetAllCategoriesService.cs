@@ -21,33 +21,23 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories
 
 		public ResultDto<List<AllCategoriesDto>> Execute()
 		{
-			var parentCategories = _context.Categories
-				.Include(p => p.ParentCategory)
-				.Include(p => p.SubCategories)
-				.Where(p => p.ParentCategory == null) // Filter only parent categories
+			var categories = _context
+				.Categories
+				.Include(p => p.Parent)
+				.Where(p => p.ParentId != null && p.Parent !=null )
 				.ToList()
 				.Select(p => new AllCategoriesDto
 				{
 					Id = p.Id,
-					Name = p.Name,
-					ChildCategories = p.SubCategories.Select(c => new CategoriesDto
-					{
-						Id = c.Id,
-						Name = c.Name,
-						Parent = new ParentCategoryDto // Set parent category for child
-						{
-							Id = p.Id,
-							Name = p.Name
-						},
-						HasChild = c.SubCategories.Any()
-					}).ToList()
-				}).ToList();
+					Name = $"{p.Parent.Name} - {p.Name}",
+				}
+				).ToList();
 
 			return new ResultDto<List<AllCategoriesDto>>
 			{
-				Data = parentCategories,
+				Data = categories,
 				IsSuccess = true,
-				Message = "لیست باموقیت برگشت داده شد"
+				Message = "",
 			};
 		}
 

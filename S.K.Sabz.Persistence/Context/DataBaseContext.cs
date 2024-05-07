@@ -25,9 +25,6 @@ namespace S.K.Sabz.Persistence.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<PostImages> PostImages { get; set; }
-        public DbSet<Slider1> Slider1 { get; set; }
-        public DbSet<Slider2> Slider2 { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,5 +41,5 @@ namespace S.K.Sabz.Persistence.Context
             //--!IsRemoved
             QueryFilter.ApplyQueryFilter(modelBuilder);
         }
-    }
+	}
 }

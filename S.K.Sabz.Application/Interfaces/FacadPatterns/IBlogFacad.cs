@@ -1,5 +1,6 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
@@ -17,6 +18,7 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
     	IGetAllCategoriesService GetAllCategoriesService { get; }
 		IRemoveCategoryService RemoveCategoryService { get; }
 		IGetCategoryService GetCategoryService { get; }
+		AddNewPostService AddNewPostService { get; }	
 	}
 
 }

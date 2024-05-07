@@ -30,43 +30,28 @@ namespace S.K.Sabz.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("CategoryPicUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("InsertTime")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MetaDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ParentCategoryId")
+                    b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentCategoryId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -98,17 +83,11 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.Property<bool>("IsSpecial")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<long>("Silder1Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Slider1Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Slider2Id")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -130,10 +109,6 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("Slider1Id");
-
-                    b.HasIndex("Slider2Id");
 
                     b.HasIndex("UserId");
 
@@ -213,76 +188,6 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.ToTable("PostImages");
                 });
 
-            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Slider1", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("ClickCount")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Slider1");
-                });
-
-            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Slider2", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("ClickCount")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Slider2");
-                });
-
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.Role", b =>
                 {
                     b.Property<long>("Id")
@@ -315,7 +220,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 5, 4, 7, 20, 15, 660, DateTimeKind.Local).AddTicks(4847),
+                            InsertTime = new DateTime(2024, 5, 7, 3, 51, 54, 482, DateTimeKind.Local).AddTicks(5602),
                             IsRemoved = false,
                             Name = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -323,7 +228,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 5, 4, 7, 20, 15, 660, DateTimeKind.Local).AddTicks(4954),
+                            InsertTime = new DateTime(2024, 5, 7, 3, 51, 54, 482, DateTimeKind.Local).AddTicks(5646),
                             IsRemoved = false,
                             Name = "Patient",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -331,7 +236,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 5, 4, 7, 20, 15, 660, DateTimeKind.Local).AddTicks(4978),
+                            InsertTime = new DateTime(2024, 5, 7, 3, 51, 54, 482, DateTimeKind.Local).AddTicks(5661),
                             IsRemoved = false,
                             Name = "Customer",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -518,30 +423,18 @@ namespace S.K.Sabz.Persistence.Migrations
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>
                 {
-                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.Category", "ParentCategory")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("ParentCategoryId");
+                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
 
-                    b.Navigation("ParentCategory");
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Post", b =>
                 {
                     b.HasOne("S.K.Sabz.Domain.Entities.Blog.Category", "Category")
-                        .WithMany("Post")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.Slider1", "Slider1")
-                        .WithMany()
-                        .HasForeignKey("Slider1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.Slider2", "Slider2")
-                        .WithMany()
-                        .HasForeignKey("Slider2Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -552,10 +445,6 @@ namespace S.K.Sabz.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Slider1");
-
-                    b.Navigation("Slider2");
 
                     b.Navigation("User");
                 });
@@ -618,9 +507,7 @@ namespace S.K.Sabz.Persistence.Migrations
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Category", b =>
                 {
-                    b.Navigation("Post");
-
-                    b.Navigation("SubCategories");
+                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.Post", b =>

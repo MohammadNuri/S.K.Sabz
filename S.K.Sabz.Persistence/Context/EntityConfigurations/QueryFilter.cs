@@ -21,8 +21,6 @@ namespace S.K.Sabz.Persistence.Context.EntityConfigurations
             modelBuilder.Entity<Post>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<PostComment>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<PostImages>().HasQueryFilter(p => !p.IsRemoved);
-            modelBuilder.Entity<Slider1>().HasQueryFilter(p => !p.IsRemoved);
-            modelBuilder.Entity<Slider2>().HasQueryFilter(p => !p.IsRemoved);
         }
     }
 }

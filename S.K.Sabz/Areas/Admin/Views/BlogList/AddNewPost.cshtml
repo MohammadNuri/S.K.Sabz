@@ -1,4 +1,5 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
 	ViewData["Title"] = "AddNewPost";
 	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -51,7 +52,7 @@
 			<!--begin::Content container-->
 			<div id="kt_app_content_container" class="app-container container-xxl">
 				<!--begin::Form-->
-				<form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
+				<form method="post" id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
 					<!--begin::کناری column-->
 					<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
 						<!--begin::Thumbnail settings-->
@@ -83,19 +84,19 @@
 									<div class="image-input-wrapper w-150px h-150px"></div>
 									<!--end::نمایش existing avatar-->
 									<!--begin::Tags-->
-									<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="انتخاب عکس اصلی پست">
+									<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="انتخاب عکس">
 										<i class="ki-duotone ki-pencil fs-7">
 											<span class="path1"></span>
 											<span class="path2"></span>
 										</i>
 										<!--begin::Inputs-->
-										<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+										<input type="file" id="Images" accept=".png, .jpg, .jpeg" />
 										<input type="hidden" name="avatar_remove" />
 										<!--end::Inputs-->
 									</label>
 									<!--end::Tags-->
 									<!--begin::انصراف-->
-									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="انصراف avatar">
+									<span class="btn btn-icon btn-circle btn-active-color-danger w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="حذف عکس">
 										<i class="ki-duotone ki-cross fs-2">
 											<span class="path1"></span>
 											<span class="path2"></span>
@@ -103,7 +104,7 @@
 									</span>
 									<!--end::انصراف-->
 									<!--begin::حذف-->
-									<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="حذف آواتار">
+									<span class="btn btn-icon btn-circle btn-active-color-danger w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="حذف عکس">
 										<i class="ki-duotone ki-cross fs-2">
 											<span class="path1"></span>
 											<span class="path2"></span>
@@ -119,6 +120,71 @@
 							<!--end::کارت body-->
 						</div>
 						<!--end::Thumbnail settings-->
+						<!--begin::دسته بندی & tags-->
+						<div class="card card-flush py-4">
+							<!--begin::کارت header-->
+							<div class="card-header">
+								<!--begin::کارت title-->
+								<div class="card-title">
+									<h2>دسته بندی</h2>
+								</div>
+								<!--end::کارت title-->
+							</div>
+							<!--end::کارت header-->
+							<!--begin::کارت body-->
+							<div class="card-body pt-0">
+								<!--begin::Input group-->
+								<!--begin::Tags-->
+								<label class="form-label">انتخاب دسته بندی</label>
+								<!--end::Tags-->
+								<!--begin::انتخاب2-->
+								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="Category">
+									<option></option>
+									@foreach (var category in ViewBag.Categories)
+									{
+										<option value="@category.Value">@category.Text</option>
+									}
+								</select>
+								<!--end::انتخاب2-->
+								<!--begin::توضیحات-->
+								<div class="text-muted fs-7 mb-7">افزودن دسته بندی برای پست الزامی است</div>
+								<!--end::توضیحات-->
+							</div>
+							<!--end::کارت body-->
+						</div>
+						<!--end::دسته بندی & tags-->
+						<!--begin::محل قرار گیری پست & tags-->
+						<div class="card card-flush py-4">
+							<!--begin::کارت header-->
+							<div class="card-header">
+								<!--begin::کارت title-->
+								<div class="card-title">
+									<h2>محل قرارگیری پست</h2>
+								</div>
+								<!--end::کارت title-->
+							</div>
+							<!--end::کارت header-->
+							<!--begin::کارت body-->
+							<div class="card-body pt-0">
+								<!--begin::Input group-->
+								<!--begin::Tags-->
+								<label class="form-label">انتخاب محل قرارگیری پست</label>
+								<!--end::Tags-->
+								<!--begin::انتخاب2-->
+								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="Position">
+									<option></option>
+									<option value="0" selected="selected">بخش پست ها</option>
+									<option value="1">بخش سربرگ</option>
+									<option value="2">بخش وسط صفحه</option>
+								</select>
+								<!--end::انتخاب2-->
+								<!--begin::توضیحات-->
+								<div class="text-muted fs-7 mb-7">محل قرارگیری پست را تنظیم کنید</div>
+								<!--end::توضیحات-->
+							</div>
+							<!--end::کارت body-->
+						</div>
+						<!--end::محل قرار گیری پست & tags-->
 						<!--begin::وضعیت-->
 						<div class="card card-flush py-4">
 							<!--begin::کارت header-->
@@ -140,54 +206,18 @@
 								<!--begin::انتخاب2-->
 								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="kt_ecommerce_add_product_status_select">
 									<option></option>
-									<option value="published" selected="selected">    منتشر شده</option>
-									<option value="inactive">    غیرفعال</option>
+									<option value="true" selected="selected">منتشر شده</option>
+									<option value="false">غیرفعال</option>
 								</select>
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
 								<div class="text-muted fs-7">وضعیت محصول را تنظیم کنید.</div>
 								<!--end::توضیحات-->
-								<!--begin::تاریخpicker-->
-								<div class="d-none mt-10">
-									<label for="kt_ecommerce_add_product_status_datepicker" class="form-label">انتخاب publishing date and time</label>
-									<input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="انتخاب تاریخ & time" />
-								</div>
-								<!--end::تاریخpicker-->
 							</div>
 							<!--end::کارت body-->
 						</div>
 						<!--end::وضعیت-->
-						<!--begin::دسته بندی & tags-->
-						<div class="card card-flush py-4">
-							<!--begin::کارت header-->
-							<div class="card-header">
-								<!--begin::کارت title-->
-								<div class="card-title">
-									<h2>دسته بندی</h2>
-								</div>
-								<!--end::کارت title-->
-							</div>
-							<!--end::کارت header-->
-							<!--begin::کارت body-->
-							<div class="card-body pt-0">
-								<!--begin::Input group-->
-								<!--begin::Tags-->
-								<label class="form-label">انتخاب دسته بندی</label>
-								<!--end::Tags-->
-								<!--begin::انتخاب2-->
-								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="kt_ecommerce_add_category_stیاe_template">
-									<option></option>
-									<option value="default" selected="selected">نمونه دسته بندی 1</option>
-									<option value="electronics">نمونه دسته بندی 2</option>
-								</select>
-								<!--end::انتخاب2-->
-								<!--begin::توضیحات-->
-								<div class="text-muted fs-7 mb-7">افزودن دسته بندی برای پست الزامی است</div>
-								<!--end::توضیحات-->
-							</div>
-							<!--end::کارت body-->
-						</div>
-						<!--end::دسته بندی & tags-->
+
 					</div>
 					<!--end::کناری column-->
 					<!--begin::اصلی column-->
@@ -223,7 +253,7 @@
 												<label class="required form-label">عنوان</label>
 												<!--end::Tags-->
 												<!--begin::Input-->
-												<input type="text" name="product_name" class="form-control mb-2" placeholder="عنوان پست" value="" />
+												<input type="text" id="Title" class="form-control mb-2" placeholder="عنوان پست"/>
 												<!--end::Input-->
 												<!--begin::توضیحات-->
 												<div class="text-muted fs-7">عنوان پست مورد نیاز است و توصیه می شود منحصر به فرد باشد.</div>
@@ -236,7 +266,7 @@
 												<label class="form-label">توضیحات</label>
 												<!--end::Tags-->
 												<!--begin::or-->
-												<div id="kt_ecommerce_add_product_description" name="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div>
+												<div id="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div>
 												<!--end::or-->
 												<!--begin::توضیحات-->
 												<div class="text-muted fs-7">توضیحات خود را در مورد پست شرح دهید.</div>
@@ -264,7 +294,7 @@
 												<label class="required form-label">Slug</label>
 												<!--end::Tags-->
 												<!--begin::Input-->
-												<input type="text" name="price" class="form-control mb-2" placeholder="Slug را وارد کنید" value="" />
+												<input type="text" id="Slug" class="form-control mb-2" placeholder="Slug را وارد کنید" />
 												<!--end::Input-->
 												<!--begin::توضیحات-->
 												<div class="text-muted fs-7">یک کلمه در وصف کلی پست وارد کنید (اسلاگ نمیتواند تکراری باشد)</div>
@@ -292,7 +322,7 @@
 														<label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
 															<!--begin::رادیو-->
 															<span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-																<input class="form-check-input" type="radio" name="discount_option" value="1" checked="checked" />
+																<input class="form-check-input" type="radio" name="is_special" value="false" checked="checked" />
 															</span>
 															<!--end::رادیو-->
 															<!--begin::Info-->
@@ -310,7 +340,7 @@
 														<label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6" data-kt-button="true">
 															<!--begin::رادیو-->
 															<span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-																<input class="form-check-input" type="radio" name="discount_option" value="2" />
+																<input class="form-check-input" type="radio" name="is_special" value="true" />
 															</span>
 															<!--end::رادیو-->
 															<!--begin::Info-->
@@ -337,13 +367,13 @@
 						<!--end::Tab content-->
 						<div class="d-flex justify-content-end">
 							<!--begin::Button-->
-							<a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">انصراف</a>
+							<a href="/Admin/BlogList/Index" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">انصراف</a>
 							<!--end::Button-->
 							<!--begin::Button-->
-							<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+							<button type="button" onclick="AddNewPost(event)" class="btn btn-primary">
 								<span class="indicator-label">ذخیره تغییرات</span>
 								<span class="indicator-progress">
-									لطفا صبر کنید...
+									لطفاً صبر کنید...
 									<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
 								</span>
 							</button>
@@ -361,6 +391,8 @@
 
 @section Scripts
 {
+		<link href="~/js/Sweetalert2/sweetalert2.min.css" rel="stylesheet">
+		<script src="~/js/Sweetalert2/sweetalert2.min.js"></script>
 		<script src="~/AdminTemplate/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		<script src="~/AdminTemplate/assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
 		<script src="~/AdminTemplate/assets/plugins/global/plugins.bundle.js"></script>
@@ -371,4 +403,6 @@
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/users-search.js"></script>
+		<script src="~/AdminTemplate/assets/js/add.post.js"></script>
+
 }

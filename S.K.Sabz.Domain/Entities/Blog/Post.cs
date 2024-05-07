@@ -16,27 +16,28 @@ namespace S.K.Sabz.Domain.Entities.Blog
         public bool Displayed { get; set; }
         public int ViewCount { get; set; }
         public bool IsSpecial { get; set; }
+        public Position Position { get; set; }
 
 
         //Many to One
         public virtual Category Category { get; set; } 
         public long CategoryId { get; set; } //Forigen Key
+
         public virtual User User { get; set; }
-        public long UserId { get; set; }
+        public long UserId { get; set; } //Forigen Key
 
-        //Many to One
-        public virtual Slider1 Slider1 { get; set; }
-        public long Silder1Id { get; set; }
-
-        //Many to One
-        public virtual Slider2 Slider2 { get; set; }
-        public long Slider2Id { get; set; }
 
         //One to Many
         public virtual ICollection<PostImages> PostImages { get; set; }
         public virtual ICollection<PostComment> PostComments { get; set; }
-
-
-
     }
+
+    
+    public enum Position
+    {
+        Main = 0, //صفحه اصلی 
+        TopWide = 1, //عکس بزرگ بالا
+        CenterWide = 2, //عکس بزرگ وسط صحفحه
+    }
+
 }

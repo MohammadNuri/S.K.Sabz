@@ -32,7 +32,7 @@ namespace S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory
 			Category category = new Category()
 			{
 				Name = Name,
-			    ParentCategory = GetParent(ParentId)
+			    Parent = GetParent(ParentId)
 			};
 			_context.Categories.Add(category);
 			_context.SaveChanges();

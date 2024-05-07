@@ -11,6 +11,5 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories
 	{
 		public long Id { get; set; }
 		public string Name { get; set; } = string.Empty;
-		public List<CategoriesDto> ChildCategories { get; set; }
 	}
 }

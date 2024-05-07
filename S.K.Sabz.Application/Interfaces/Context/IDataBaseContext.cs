@@ -19,9 +19,6 @@ namespace S.K.Sabz.Application.Interfaces.Context
         DbSet<Post> Posts { get; set; }
         DbSet<PostComment> PostComments { get; set; }
         DbSet<PostImages> PostImages { get; set; }
-        DbSet<Slider1> Slider1 { get; set; }
-        DbSet<Slider2> Slider2 { get; set; }
-
 
 
         int SaveChanges(bool acceptAllChangesOnSuccess);

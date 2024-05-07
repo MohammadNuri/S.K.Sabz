@@ -18,7 +18,7 @@ namespace S.K.Sabz.Areas.Admin.Controllers
 		public IActionResult Index(long? parentId)
 		{
 
-			var result = _blogFacad.GetAllCategoriesService.Execute(); // Call your service to get categories
+			var result = _blogFacad.GetCategoryService.Execute(parentId); // Call your service to get categories
 
 			if (!result.IsSuccess)
 			{

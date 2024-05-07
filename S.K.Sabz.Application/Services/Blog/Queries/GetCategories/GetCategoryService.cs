@@ -16,22 +16,22 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetCategories
         public ResultDto<List<CategoriesDto>> Execute(long? ParentId)
         {
             var categories = _context.Categories
-               .Include(p => p.ParentCategory)
-               .Include(p => p.SubCategories)
-               .Where(p => p.ParentCategoryId == ParentId)
+               .Include(p => p.Parent)
+               .Include(p => p.Children)
+               .Where(p => p.ParentId == ParentId)
                .ToList()
                .Select(p => new CategoriesDto
                {
                    Id = p.Id,
                    Name = p.Name,
-                   Parent = p.ParentCategory != null ? new
+                   Parent = p.Parent != null ? new
                    ParentCategoryDto
                    {
-                       Id = p.ParentCategory.Id,
-                       Name = p.ParentCategory.Name,
+                       Id = p.Parent.Id,
+                       Name = p.Parent.Name,
                    }
                    : null,
-                   HasChild = p.SubCategories.Count() > 0 ? true : false,
+                   HasChild = p.Children.Count() > 0 ? true : false,
                }).ToList();
 
 
