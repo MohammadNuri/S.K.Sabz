@@ -8,6 +8,7 @@ using S.K.Sabz.Application.Services.Blog.Commands.RemovePost;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostById;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 using System;
@@ -92,7 +93,16 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
                 return _getPostForSiteService = _getPostForSiteService ?? new GetPostForSiteService(_context);
             }
         }
+        private IGetPostDetailForSiteService _getPostDetailForSite;
+        public IGetPostDetailForSiteService GetPostDetailForSiteService
+        {
+            get
+            {
+                return _getPostDetailForSite = _getPostDetailForSite ?? new GetPostDetailForSiteService(_context);
+            }
+        }
         
+
 
         private AddNewPostService _addNewPostService;
 		public AddNewPostService AddNewPostService

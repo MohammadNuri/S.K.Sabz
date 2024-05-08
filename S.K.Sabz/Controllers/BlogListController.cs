@@ -17,9 +17,16 @@ namespace S.K.Sabz.Controllers
         }
 
 
-        public IActionResult Detail()
+        public IActionResult Detail(long Id)
         {
-            return View();
+            var result = _blogFacad.GetPostDetailForSiteService.Execute(Id);
+            if (!result.IsSuccess)
+            {
+                // Redirect to an error page or return a specific error view
+                return RedirectToAction("Error", "Home", new { errorMessage = result.Message });
+            }
+
+            return View(result.Data);
         }
 
     }

@@ -7,6 +7,7 @@ using S.K.Sabz.Application.Services.Blog.Commands.RemovePost;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostById;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 using System;
@@ -29,6 +30,7 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
 		EditPostService EditPostService { get; }
 		IGetPostById GetPostById { get; }
         IGetPostForSiteService GetPostForSiteService { get; }
+        IGetPostDetailForSiteService GetPostDetailForSiteService { get; }
 
     }
 
