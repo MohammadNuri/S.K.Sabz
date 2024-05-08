@@ -9,6 +9,7 @@ using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostById;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,8 +84,17 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 				return _getPostById = _getPostById ?? new GetPostById(_context);
 			}
 		}
+        private IGetPostForSiteService _getPostForSiteService;
+        public IGetPostForSiteService GetPostForSiteService
+        {
+            get
+            {
+                return _getPostForSiteService = _getPostForSiteService ?? new GetPostForSiteService(_context);
+            }
+        }
+        
 
-		private AddNewPostService _addNewPostService;
+        private AddNewPostService _addNewPostService;
 		public AddNewPostService AddNewPostService
 		{
 			get

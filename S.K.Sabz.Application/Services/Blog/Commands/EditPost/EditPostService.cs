@@ -35,6 +35,10 @@ namespace S.K.Sabz.Application.Services.Blog.Commands.EditPost
 
 			// Update post properties
 			post.Title = request.Title;
+			if (request.Description == "<p><br></p>")
+			{
+				request.Description = post.Description;
+			}
 			post.Description = request.Description;
 			post.Slug = request.Slug;
 			post.Displayed = request.Displayed;
@@ -49,13 +53,25 @@ namespace S.K.Sabz.Application.Services.Blog.Commands.EditPost
 			// Handle image removal
 			RemoveImagesFromPost(post, request.RemovedImageIds);
 
-			_context.SaveChanges();
-
-			return new ResultDto()
+			try
 			{
-				IsSuccess = true,
-				Message = "ویرایش با موفقیت انجام شد"
-			};
+				_context.SaveChanges();
+
+				return new ResultDto()
+				{
+					IsSuccess = true,
+					Message = "ویرایش با موفقیت انجام شد"
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ResultDto()
+				{
+					IsSuccess = false,
+					Message = "لطفا دسته بندی را انتخاب کنید"
+				};
+			}
+
 		}
 
 		private void AddNewImagesToPost(Post post, List<IFormFile> newImages)

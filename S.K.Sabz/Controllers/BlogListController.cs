@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 
 namespace S.K.Sabz.Controllers
 {
     public class BlogListController : Controller
     {
-        public IActionResult Index()
+        private readonly IBlogFacad _blogFacad;
+        public BlogListController(IBlogFacad blogFacad)
         {
-            return View();
+            _blogFacad = blogFacad;
         }
-
-
-
-
-
-
-
+        public IActionResult Index(Ordering ordering, string? searchKey, long? catId, int page = 1, int pageSize = 20)
+        {
+            return View(_blogFacad.GetPostForSiteService.Execute(ordering, searchKey, catId, page, pageSize).Data);
+        }
 
 
         public IActionResult Detail()

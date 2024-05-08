@@ -117,7 +117,18 @@ namespace S.K.Sabz.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult EditPost(EditPostDto request)
 		{
+
+			List<IFormFile> images = new List<IFormFile>();
+			for (int i = 0; i < Request.Form.Files.Count; i++)
+			{
+				var file = Request.Form.Files[i];
+				images.Add(file);
+			}
+
+			request.NewImages = images;
+
 			var result = _blogFacad.EditPostService.Execute(request);
+
 			return Json(result);
 		}
 

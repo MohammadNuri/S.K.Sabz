@@ -1,7 +1,15 @@
-﻿
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
+@using S.K.Sabz.Application.Services.Common;
+@model PostForSiteDto
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int pageNumber = 1;
+    int pageSize = 20;
+    int.TryParse(Context.Request.Query["pageNumber"], out pageNumber);
+    int.TryParse(Context.Request.Query["pageSize"], out pageSize);
 }
 
 <!-- Hero Start -->
@@ -38,221 +46,103 @@
 <section class="section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6">
-                            <img src="images/work/14.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
+            @foreach (var post in Model.Posts)
+            {
+                <div class="col-lg-6 col-12 mb-4 pb-2">
+                    <div class="card blog rounded border-0 shadow overflow-hidden">
+                        <div class="row align-items-center g-0">
+                            <div class="col-md-6">
+                                <img src="@post.ImageSrc" class="img-fluid" alt="">
+                                <div class="overlay bg-dark"></div>
+                                <div class="author">
 
-                        <div class="col-md-6">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                    <small class="text-light user d-block"><i class="uil uil-user"></i> @post.UserName </small>
+                                    <small class="text-light date"><i class="uil uil-calendar-alt"></i> @post.InsertTime.ToPersianDate("ds dd ms Y") </small>
                                 </div>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
+                            </div><!--end col-->
 
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6 order-2 order-md-1">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                            <div class="col-md-6">
+                                <div class="card-body content">
+                                    <h5><a href="javascript:void(0)" class="card-title title text-dark">@post.Title</a></h5>
+                                    <p class="text-muted mb-0">
+                                        @{
+                                            var truncatedDescription = post.Description;
+                                            if (truncatedDescription.Length > 50)
+                                            {
+                                                truncatedDescription = truncatedDescription.Substring(0, 50);
+                                            }
+                                            @Html.Raw(truncatedDescription)
+                                        }
+                                        ...
+                                    </p>
+                                    <div class="post-meta d-flex justify-content-between mt-3">
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>@post.ViewCount</a></li>
+                                            <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>0</a></li>
+                                        </ul>
+                                        <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div><!--end col-->
+                            </div><!--end col-->
+                        </div> <!--end row-->
+                    </div><!--end blog post-->
+                </div>
 
-                        <div class="col-md-6 order-1 order-md-2">
-                            <img src="images/work/15.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
+                <!--end col-->
+            }
 
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6">
-                            <img src="images/work/16.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-md-6">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
-
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6 order-2 order-md-1">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-md-6  order-1 order-md-2">
-                            <img src="images/work/17.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
-
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6">
-                            <img src="images/work/18.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-md-6">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
-
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6 order-2 order-md-1">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-md-6 order-1 order-md-2">
-                            <img src="images/work/19.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
-
-            <div class="col-lg-6 col-12 mb-4 pb-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="row align-items-center g-0">
-                        <div class="col-md-6">
-                            <img src="images/work/13.jpg" class="img-fluid" alt="">
-                            <div class="overlay bg-dark"></div>
-                            <div class="author">
-                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-md-6">
-                            <div class="card-body content">
-                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                                <p class="text-muted mb-0">به دلیل استفاده گسترده از آن به عنوان متن پر کننده برای طرح بندی, غیرقابل خواندن</p>
-                                <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                    </ul>
-                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-                    </div> <!--end row-->
-                </div><!--end blog post-->
-            </div><!--end col-->
             <!-- PAGINATION START -->
-            <div class="col-12">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Previous">قبلی </a></li>
-                    <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Next">بعدی </a></li>
-                </ul>
-            </div><!--end col-->
+            <div class="pagination-product">
+                <nav aria-label="Page navigation example">
+                    <paging total-records="@Model.TotalRow"
+                            page-no="@pageNumber==0?1:pageNumber"
+                            page-size="@pageSize==0?20:pageSize"
+                            show-prev-next="true"
+                            show-total-pages="false"
+                            show-total-records="false"
+                            show-page-size-nav="true"
+                            show-first-numbered-page="true"
+                            show-last-numbered-page="true"
+                            query-string-key-page-no="Page"
+                            query-string-key-page-size="PageSize"
+                            query-string-value="@@(Request.QueryString.Value)"
+                            gap-size="2"
+                            sr-text-first="اولین"
+                            sr-text-last="آخرین"
+                            sr-text-previous="قبلی"
+                            sr-text-next="بعدی">
+                    </paging>
+                </nav>
+            </div>
             <!-- PAGINATION END -->
         </div><!--end row-->
     </div><!--end container-->
 </section><!--end section -->
 <!--Blog Lists End-->
 
+
+@*Pagination Settings for Customize , do it if u like
+
+    text-page-size="Items per page:"
+    text-total-pages="pages"
+    text-total-records="records"
+    text-first="&laquo;"
+    text-last="&raquo;"
+    text-previous="&lsaquo;"
+    text-next="&rsaquo;"
+    sr-text-first="First"
+    sr-text-last="Last"
+    sr-text-previous="Previous"
+    sr-text-next="Next"
+
+
+    class="row"
+    class-paging-control-div="col"
+    class-info-div="col"
+    class-page-size-div="col"
+    class-paging-control="pagination"
+    class-active-page="disabled"
+    class-disabled-jumping-button="disabled"
+    class-total-pages="badge badge-secondary"
+    class-total-records="badge badge-info"
+	*@

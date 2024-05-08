@@ -8,6 +8,7 @@ using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostById;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
 		RemovePostService RemovePostService { get; }
 		EditPostService EditPostService { get; }
 		IGetPostById GetPostById { get; }
+        IGetPostForSiteService GetPostForSiteService { get; }
 
-	}
+    }
 
 }

@@ -1,0 +1,17 @@
+﻿.pagination-product {
+    width: 100%;
+    text-align: right;
+    margin: 25px 0;
+}
+
+    .pagination-product .pagination .page-item .page-link {
+        border: none;
+        margin-left: 5px;
+        border-radius: 50px;
+        color: #666;
+    }
+
+        .pagination-product .pagination .page-item .page-link.active {
+            background: #00bfd6;
+            color: #fff !important;
+        }

@@ -74,23 +74,25 @@
 										<div class="card-xl-stretch me-md-6">
 
 											<!--begin::Overlay-->
-											@foreach (var postImage in post.Images)
+											@if (post.Images.Any())
 											{
-											<a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="~/@postImage.Src">
-												<!--begin::Image-->
-													<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('/@postImage.Src.Replace("\\", "/")')"></div>
-												<!--end::Image-->
-												<!--begin::Actions-->
-												<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
-													<i class="ki-duotone ki-eye fs-2x text-white">
-														<span class="path1"></span>
-														<span class="path2"></span>
-														<span class="path3"></span>
-													</i>
-												</div>
-												<!--end::Actions-->
-											</a>
+												var lastPostImage = post.Images.Last();
+												<a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="~/@lastPostImage.Src">
+													<!--begin::Image-->
+													<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('/@lastPostImage.Src.Replace("\\", "/")')"></div>
+													<!--end::Image-->
+													<!--begin::Actions-->
+													<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+														<i class="ki-duotone ki-eye fs-2x text-white">
+															<span class="path1"></span>
+															<span class="path2"></span>
+															<span class="path3"></span>
+														</i>
+													</div>
+													<!--end::Actions-->
+												</a>
 											}
+
 											<!--end::Overlay-->
 											<!--begin::Body-->
 											<div class="mt-5">
@@ -101,12 +103,13 @@
 												<div class="fw-semibold fs-5 text-gray-600 text-dark mt-3">
 													@{
 														var truncatedDescription = post.Description;
-														if (truncatedDescription.Length > 40)
+														if (truncatedDescription.Length > 70)
 														{
-															truncatedDescription = truncatedDescription.Substring(0, 40);
+															truncatedDescription = truncatedDescription.Substring(0, 70);
 														}
 														@Html.Raw(truncatedDescription)
 													}
+													...
 												</div>
 												<!--end::Text-->
 												<!--begin::Text-->

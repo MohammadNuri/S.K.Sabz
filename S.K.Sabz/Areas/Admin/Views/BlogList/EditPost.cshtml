@@ -145,12 +145,6 @@
 										<option value="@category.Value">@category.Text</option>
 									}
 								</select>
-								<script>
-									$(document).ready(function () {
-										var categoryId = '@ViewBag.PostData.CategoryId'; // Get the value from ViewBag
-										$('#Category').val(categoryId);
-									});
-								</script>
 
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
@@ -404,7 +398,7 @@
 							<a href="/Admin/BlogList/Index" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">انصراف</a>
 							<!--end::Button-->
 							<!--begin::Button-->
-							<button type="button" onclick="AddNewPost(event)" class="btn btn-primary">
+							<button type="button" onclick="EditPost(event)" class="btn btn-primary">
 								<span class="indicator-label">ذخیره تغییرات</span>
 								<span class="indicator-progress">
 									لطفاً صبر کنید...
