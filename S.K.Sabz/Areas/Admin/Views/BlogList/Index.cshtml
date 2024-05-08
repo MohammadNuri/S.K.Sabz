@@ -1,4 +1,6 @@
-﻿
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
+@model PostForAdminDto;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -64,53 +66,70 @@
 							<div class="row g-10">
 
 								<!--begin::Col-->
-								<div class="col-md-4">
-									<!--begin::Hot sales post-->
-									<div class="card-xl-stretch me-md-6">
-										<!--begin::Overlay-->
-										<a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="~/AdminTemplate/assets/media/stock/600x400/img-23.jpg">
-											<!--begin::Image-->
-											<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('/AdminTemplate/assets/media/stock/600x400/img-23.jpg')"></div>
-											<!--end::Image-->
-											<!--begin::Actions-->
-											<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
-												<i class="ki-duotone ki-eye fs-2x text-white">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-												</i>
-											</div>
-											<!--end::Actions-->
-										</a>
-										<!--end::Overlay-->
-										<!--begin::Body-->
-										<div class="mt-5">
-											<!--begin::Title-->
-											<a href="#" class="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base">25 محصول مگا بسته با 50٪ تخفیف تخفیف شگفت انگیز</a>
-											<!--end::Title-->
-											<!--begin::Text-->
-											<div class="fw-semibold fs-5 text-gray-600 text-dark mt-3">ما در ساخت یک چشم انداز نیز مورد توجه قرار گرفته ایم</div>
-											<!--end::Text-->
-											<!--begin::Text-->
-											<div class="fs-6 fw-bold mt-5 d-flex flex-stack">
-												<!--begin::Tags-->
-												<span class="badge border border-dashed fs-2 fw-bold text-dark p-2">
-													28 <span class="fs-6 fw-semibold text-gray-400">بازدید</span>
-												</span>
-												<!--end::Tags-->
+
+										@foreach (var post in Model.Posts)
+										{
+									<div class="col-md-4">
+
+										<div class="card-xl-stretch me-md-6">
+
+											<!--begin::Overlay-->
+											@foreach (var postImage in post.Images)
+											{
+											<a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="~/@postImage.Src">
+												<!--begin::Image-->
+													<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('/@postImage.Src.Replace("\\", "/")')"></div>
+												<!--end::Image-->
 												<!--begin::Actions-->
-												<div class="d-flex align-items-center">
-													<a href="#" class="btn btn-sm btn-info me-1">ویرایش</a>
-													<a href="#" class="btn btn-sm btn-danger">حذف</a>
+												<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+													<i class="ki-duotone ki-eye fs-2x text-white">
+														<span class="path1"></span>
+														<span class="path2"></span>
+														<span class="path3"></span>
+													</i>
 												</div>
 												<!--end::Actions-->
+											</a>
+											}
+											<!--end::Overlay-->
+											<!--begin::Body-->
+											<div class="mt-5">
+												<!--begin::Title-->
+												<a href="#" class="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base">@post.Title</a>
+												<!--end::Title-->
+												<!--begin::Text-->
+												<div class="fw-semibold fs-5 text-gray-600 text-dark mt-3">
+													@{
+														var truncatedDescription = post.Description;
+														if (truncatedDescription.Length > 40)
+														{
+															truncatedDescription = truncatedDescription.Substring(0, 40);
+														}
+														@Html.Raw(truncatedDescription)
+													}
+												</div>
+												<!--end::Text-->
+												<!--begin::Text-->
+												<div class="fs-6 fw-bold mt-5 d-flex flex-stack">
+													<!--begin::Tags-->
+													<span class="badge border border-dashed fs-2 fw-bold text-dark p-2">
+														@post.ViewCount <span class="fs-6 fw-semibold text-gray-400">بازدید</span>
+													</span>
+													<!--end::Tags-->
+													<!--begin::Actions-->
+													<div class="d-flex align-items-center">
+														<a href="/Admin/BlogList/EditPost?postId=@post.Id" class="btn btn-sm btn-info me-1">ویرایش</a>
+														<a href="#" onclick="RemovePost('@post.Id')" class="btn btn-sm btn-danger">حذف</a>
+													</div>
+													<!--end::Actions-->
+												</div>
+												<!--end::Text-->
 											</div>
-											<!--end::Text-->
+											<!--end::Body-->
 										</div>
-										<!--end::Body-->
 									</div>
-									<!--end::Hot sales post-->
-								</div>
+										}
+
 								<!--end::Col-->
 
 							</div>
@@ -128,3 +147,8 @@
 	</div>
 	<!--end::Content wrapper-->
 
+@section Scripts
+{
+	<script src="/AdminTemplate/assets/js/remove.post.js"></script>
+	<script src="/AdminTemplate/assets/js/edit.post.js"></script>
+}

@@ -2,9 +2,13 @@
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
+using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
+using S.K.Sabz.Application.Services.Blog.Commands.RemovePost;
 using S.K.Sabz.Application.Services.Blog.Queries.GetAllCategories;
 using S.K.Sabz.Application.Services.Blog.Queries.GetCategories;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostById;
+using S.K.Sabz.Application.Services.Blog.Queries.GetPostForAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +28,7 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 		}
 
 
-		//--Inject AddNewCategoryService
+		//--Inject Services
 		private AddNewCategoryService _addNewCategory;
 		public AddNewCategoryService AddNewCategoryService
 		{
@@ -40,6 +44,15 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 			get
 			{
 				return _getAllCategoriesService = _getAllCategoriesService ?? new GetAllCategoriesService(_context);
+			}
+		}
+
+		private IGetPostForAdminSerivce _getPostForAdmin;
+		public IGetPostForAdminSerivce GetPostForAdminSerivce
+		{
+			get
+			{
+				return _getPostForAdmin = _getPostForAdmin ?? new GetPostForAdminSerivce(_context);
 			}
 		}
 
@@ -62,6 +75,15 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 			}
 		}
 
+		private IGetPostById _getPostById;
+		public IGetPostById GetPostById
+		{
+			get
+			{
+				return _getPostById = _getPostById ?? new GetPostById(_context);
+			}
+		}
+
 		private AddNewPostService _addNewPostService;
 		public AddNewPostService AddNewPostService
 		{
@@ -70,6 +92,27 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 				return _addNewPostService = _addNewPostService ?? new AddNewPostService(_context);
 			}
 		}
+
+		private RemovePostService _removePost;
+		public RemovePostService RemovePostService
+		{
+			get
+			{
+				return _removePost = _removePost ?? new RemovePostService(_context);
+			}
+		}
+
+		private EditPostService _editPost;
+		public EditPostService EditPostService
+		{
+			get
+			{
+				return _editPost = _editPost ?? new EditPostService(_context);
+			}
+		}
+
+
+		
 
 	}
 }

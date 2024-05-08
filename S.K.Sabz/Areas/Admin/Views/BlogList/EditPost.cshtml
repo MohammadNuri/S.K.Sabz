@@ -61,7 +61,7 @@
 							<div class="card-header">
 								<!--begin::کارت title-->
 								<div class="card-title">
-									<h2>تصویر اصلی</h2>
+									<h2>انتخاب تصویر جدید</h2>
 								</div>
 								<!--end::کارت title-->
 							</div>
@@ -114,7 +114,7 @@
 								</div>
 								<!--end::Image input-->
 								<!--begin::توضیحات-->
-								<div class="text-muted fs-7">لطفا عکس اصلی پست را انتخاب کنید، عکس فقط میتواند *.png, *.jpg and *.jpeg باشد.</div>
+								<div class="text-info fs-7">در صورتی که قصد تعویض عکس را ندارید، میتوانید این قسمت را خالی بگذارید، عکس فقط میتواند *.png, *.jpg and *.jpeg باشد.</div>
 								<!--end::توضیحات-->
 							</div>
 							<!--end::کارت body-->
@@ -145,9 +145,16 @@
 										<option value="@category.Value">@category.Text</option>
 									}
 								</select>
+								<script>
+									$(document).ready(function () {
+										var categoryId = '@ViewBag.PostData.CategoryId'; // Get the value from ViewBag
+										$('#Category').val(categoryId);
+									});
+								</script>
+
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
-								<div class="text-info fs-7 mb-7">انتخاب دسته بندی برای پست الزامی است</div>
+								<div class="text-danger fs-7 mb-7">انتخاب دسته بندی برای پست الزامی است</div>
 								<!--end::توضیحات-->
 							</div>
 							<!--end::کارت body-->
@@ -168,7 +175,7 @@
 							<div class="card-body pt-0">
 								<!--begin::Input group-->
 								<!--begin::Tags-->
-								<label class="form-label">انتخاب محل قرارگیری پست</label>
+								<label class="form-label">انتخاب محل</label>
 								<!--end::Tags-->
 								<!--begin::انتخاب2-->
 								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="Position">
@@ -177,6 +184,12 @@
 									<option value="1">بخش سربرگ</option>
 									<option value="2">بخش وسط صفحه</option>
 								</select>
+								<script>
+									$(document).ready(function () {
+										var positionValue = '@ViewBag.PostData.Position'; // Get the value from ViewBag
+										$('#Position').val(positionValue);
+									});
+								</script>
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
 								<div class="text-muted fs-7 mb-7">محل قرارگیری پست را تنظیم کنید</div>
@@ -209,6 +222,13 @@
 									<option value="true" selected="selected">منتشر شده</option>
 									<option value="false">غیرفعال</option>
 								</select>
+								<script>
+									// Set the selected option based on the value in ViewBag.PostData.Displayed
+									$(document).ready(function () {
+										var displayedValue = '@ViewBag.PostData.Displayed'; // Get the value from ViewBag
+										$('#kt_ecommerce_add_product_status_select').val(displayedValue);
+									});
+								</script>
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
 								<div class="text-muted fs-7">وضعیت محصول را تنظیم کنید.</div>
@@ -253,7 +273,7 @@
 												<label class="required form-label">عنوان</label>
 												<!--end::Tags-->
 												<!--begin::Input-->
-												<input type="text" id="Title" class="form-control mb-2" placeholder="عنوان پست"/>
+												<input type="text" value="@ViewBag.PostData.Title" id="Title" class="form-control mb-2" placeholder="عنوان پست" />
 												<!--end::Input-->
 												<!--begin::توضیحات-->
 												<div class="text-muted fs-7">عنوان پست مورد نیاز است و توصیه می شود منحصر به فرد باشد.</div>
@@ -262,14 +282,22 @@
 											<!--end::Input group-->
 											<!--begin::Input group-->
 											<div>
+												<label class="form-label">توضیحات قبلی:</label>
+												<br />
+												<br />
+												<label>@Html.Raw(ViewBag.PostData.Description)</label>
+												<div class="text-info fs-7" style="margin-top: 10px;">میتوانید توضیحات قبلی خود را کپی کنید و آن را ویرایش کنید</div>
+											</div>
+											<br>
+											<br>
+											<div>
 												<!--begin::Tags-->
-												<label class="form-label">توضیحات</label>
+												<label class="form-label">توضیحات جدید را وارد کنید</label>
 												<!--end::Tags-->
-												<!--begin::or-->
 												<div id="kt_ecommerce_add_product_description" class="min-h-200px mb-2"></div>
 												<!--end::or-->
 												<!--begin::توضیحات-->
-												<div class="text-muted fs-7">توضیحات خود را در مورد پست شرح دهید.</div>
+												<div class="text-info fs-7">در صورت عدم تغییر میتوانید خالی بگذارید </div>
 												<!--end::توضیحات-->
 											</div>
 											<!--end::Input group-->
@@ -294,7 +322,7 @@
 												<label class="required form-label">Slug</label>
 												<!--end::Tags-->
 												<!--begin::Input-->
-												<input type="text" id="Slug" class="form-control mb-2" placeholder="Slug را وارد کنید" />
+												<input type="text" value="@ViewBag.PostData.Slug" id="Slug" class="form-control mb-2" placeholder="Slug را وارد کنید" />
 												<!--end::Input-->
 												<!--begin::توضیحات-->
 												<div class="text-muted fs-7">یک کلمه در وصف کلی پست وارد کنید (اسلاگ نمیتواند تکراری باشد)</div>
@@ -322,7 +350,10 @@
 														<label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
 															<!--begin::رادیو-->
 															<span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-																<input class="form-check-input" type="radio" name="is_special" value="false" checked="checked" />
+																<input class="form-check-input" type="radio" name="is_special" value="false" @if (!(bool)ViewBag.PostData.IsSpecial)
+																{
+																	<text>checked="checked"</text>
+																} />
 															</span>
 															<!--end::رادیو-->
 															<!--begin::Info-->
@@ -340,7 +371,10 @@
 														<label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6" data-kt-button="true">
 															<!--begin::رادیو-->
 															<span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-																<input class="form-check-input" type="radio" name="is_special" value="true" />
+																<input class="form-check-input" type="radio" name="is_special" value="true" @if ((bool)ViewBag.PostData.IsSpecial)
+																{
+																	<text>checked="checked"</text>
+																} />
 															</span>
 															<!--end::رادیو-->
 															<!--begin::Info-->
@@ -389,8 +423,10 @@
 		<!--end::Content-->
 	</div>
 
-@section Scripts
-{
+
+
+	@section Scripts
+ {
 		<link href="~/js/Sweetalert2/sweetalert2.min.css" rel="stylesheet">
 		<script src="~/js/Sweetalert2/sweetalert2.min.js"></script>
 		<script src="~/AdminTemplate/assets/plugins/custom/datatables/datatables.bundle.js"></script>
@@ -403,6 +439,6 @@
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
 		<script src="~/AdminTemplate/assets/js/custom/utilities/modals/users-search.js"></script>
-		<script src="~/AdminTemplate/assets/js/add.post.js"></script>
+		<script src="~/AdminTemplate/assets/js/edit.post.js"></script>
 
-}
+	}

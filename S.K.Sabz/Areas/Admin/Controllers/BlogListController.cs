@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
+using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Common.ErrorHandling;
 using S.K.Sabz.Common;
 using S.K.Sabz.Common.Dto;
@@ -18,14 +19,12 @@ namespace S.K.Sabz.Areas.Admin.Controllers
             _blogFacad = blogFacad;
         }
 
-        public IActionResult Index()
-        {
-            return View();
+        public IActionResult Index(int page = 1, int pageSize = 20)
+		{
+            return View(_blogFacad.GetPostForAdminSerivce.Execute(page, pageSize).Data);
         }
 
-
-
-        public IActionResult Detail()
+		public IActionResult Detail()
         {
             return View();
         }
@@ -74,5 +73,59 @@ namespace S.K.Sabz.Areas.Admin.Controllers
 
 		}
 
+		[HttpGet]
+		public IActionResult GetPostData(long postId)
+		{
+
+			var result = _blogFacad.GetPostById.Execute(postId);
+
+			return Json(result);
+		}
+
+		[HttpGet]
+		public IActionResult EditPost(long postId)
+		{
+			var result = _blogFacad.GetPostById.Execute(postId);
+
+			if (result.IsSuccess)
+			{
+				var post = result.Data;
+
+				var categories = _blogFacad.GetAllCategoriesService.Execute().Data;
+
+				// Convert categories to SelectListItems
+				var categoryItems = categories.Select(c => new SelectListItem
+				{
+					Value = c.Id.ToString(), // Assuming Id is a long or int
+					Text = c.Name
+				});
+
+				// Store the SelectListItems and the fetched post data in ViewBag
+				ViewBag.Categories = categoryItems;
+				ViewBag.PostData = post;
+				ViewBag.HtmlContent = post.Description;
+
+				return View();
+			}
+			else
+			{
+				// Handle error if the post data retrieval was unsuccessful
+				return RedirectToAction("Index", "BlogList"); // Redirect to a suitable action or page
+			}
+		}
+
+		[HttpPost]
+		public IActionResult EditPost(EditPostDto request)
+		{
+			var result = _blogFacad.EditPostService.Execute(request);
+			return Json(result);
+		}
+
+		[HttpPost]
+		public IActionResult RemovePost(long postId)
+		{
+			var result = _blogFacad.RemovePostService.Execute(postId);
+			return Json(result);
+		}
 	}
 }
