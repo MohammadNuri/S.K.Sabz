@@ -174,19 +174,13 @@
 								<!--begin::انتخاب2-->
 								<select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="انتخاب " id="Position">
 									<option></option>
-									<option value="0" selected="selected">بخش پست ها</option>
-									<option value="1">بخش سربرگ</option>
-									<option value="2">بخش وسط صفحه</option>
+									<option value="Main" selected>بخش پست ها</option>
+									<option value="TopWide">بخش سربرگ</option>
+									<option value="CenterWide">بخش وسط صفحه</option>
 								</select>
-								<script>
-									$(document).ready(function () {
-										var positionValue = '@ViewBag.PostData.Position'; // Get the value from ViewBag
-										$('#Position').val(positionValue);
-									});
-								</script>
 								<!--end::انتخاب2-->
 								<!--begin::توضیحات-->
-								<div class="text-muted fs-7 mb-7">محل قرارگیری پست را تنظیم کنید</div>
+								<div class="text-danger fs-7 mb-7">تنظیم محل قرارگیری پست الزامی است</div>
 								<!--end::توضیحات-->
 							</div>
 							<!--end::کارت body-->

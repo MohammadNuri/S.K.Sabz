@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
+using S.K.Sabz.Domain.Entities.Blog;
 
 namespace S.K.Sabz.Controllers
 {
@@ -11,9 +12,9 @@ namespace S.K.Sabz.Controllers
         {
             _blogFacad = blogFacad;
         }
-        public IActionResult Index(Ordering ordering, string? searchKey, long? catId, int page = 1, int pageSize = 20)
+        public IActionResult Index(Ordering ordering, string? searchKey, long? catId, int page = 1, int pageSize = 20, bool isSpecial = false, Position position = Position.Main, bool topPost = false)
         {
-            return View(_blogFacad.GetPostForSiteService.Execute(ordering, searchKey, catId, page, pageSize).Data);
+            return View(_blogFacad.GetPostForSiteService.Execute(ordering, searchKey, catId, page, pageSize, isSpecial, position,topPost).Data);
         }
 
 

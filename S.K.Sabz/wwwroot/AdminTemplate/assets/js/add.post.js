@@ -64,7 +64,7 @@ function AddNewPost(event) {
 
                 // Display a warning message using SweetAlert
                 swal.fire(
-                    'هشدار!',
+                    'لطفا ابتدا وارد وب سایت شوید!',
                     data.message,
                     'warning'
                 );
@@ -79,7 +79,7 @@ function AddNewPost(event) {
 
             // Display a warning message using SweetAlert
             swal.fire(
-                'هشدار!',
+                'لطفا ابتدا وارد وب سایت شوید!',
                 request.responseText,
                 'warning'
             );

@@ -3,6 +3,7 @@ using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
+using S.K.Sabz.Application.Services.Users.Queries.GetAllUsers;
 using S.K.Sabz.Application.Services.Users.Queries.GetUserById;
 using System;
 using System.Collections.Generic;
@@ -41,8 +42,17 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
                 return _getUserById = _getUserById ?? new GetUserById(_context);    
             }
         }
+		private IGetAllUsersService _getAllUsers;
+		public IGetAllUsersService GetAllUsersService
+		{
+			get
+			{
+				return _getAllUsers = _getAllUsers ?? new GetAllUsersService(_context);
+			}
+		}
+		
 
-        private UpdateUserInfoService _updateUserInfoService;
+		private UpdateUserInfoService _updateUserInfoService;
         public UpdateUserInfoService UpdateUserInfoService
 		{
             get

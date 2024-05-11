@@ -1,4 +1,7 @@
-﻿@{
+﻿@using S.K.Sabz.Models.BlogHomePage;
+@using S.K.Sabz.Application.Services.Common
+@model HomePageViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,74 +9,38 @@
 <section class="home-slider position-relative mt-5">
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item mt-4 active" data-bs-interval="3000">
-                <div class="bg-half-170" style="background: url('../images/blog/bg1.jpg') center center;">
-                    <div class="bg-overlay"></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="title-heading text-center">
-                                    <h2 class="text-white title-dark mb-3">سفر آخر هفته </h2>
-                                    <ul class="list-unstyled">
-                                        <li class="list-inline-item small user text-white-50 me-2"><i class="uil uil-user text-white title-dark"></i> کالوین لورس</li>
-                                        <li class="list-inline-item small date text-white-50"><i class="uil uil-calendar-alt text-white title-dark"></i> اردیبهشت 1400</li>
-                                    </ul>
-                                    <p class="para-desc mx-auto text-white-50 mb-0">کار با مسیر سبز را شروع کنید که می تواند همه چیزهایی را که برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
-                                    <div class="mt-4">
-                                        <a href="javascript:void(0)" class="btn btn-primary">ادامه مطلب  </a>
+            @foreach (var item in Model.TopWidePosts.Select((value, index) => new { Value = value, Index = index }))
+            {
+                <div class="carousel-item mt-4 @(item.Index == 0 ? "active" : "")" data-bs-interval="3000">
+                    <div class="bg-half-170" style="background: url('/@item.Value.ImageSrc.Replace("\\","/")') center center;">
+                        <div class="bg-overlay"></div>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <div class="title-heading text-center">
+                                        <h2 class="text-white title-dark mb-3">@item.Value.Title </h2>
+                                        <ul class="list-unstyled">
+                                            <li class="list-inline-item small user text-white-50 me-2"><i class="uil uil-user text-white title-dark"></i> @item.Value.UserName</li>
+                                            <li class="list-inline-item small date text-white-50"><i class="uil uil-calendar-alt text-white title-dark"></i> @item.Value.InsertTime.ToPersianDate("ds dd ms Y")</li>
+                                        </ul>
+                                            @{
+                                                var truncatedDescription = item.Value.Description;
+                                                if (truncatedDescription.Length > 50)
+                                                {
+                                                    truncatedDescription = truncatedDescription.Substring(0, 50);
+                                                }
+                                            <p class="para-desc mx-auto text-white-50 mb-0">@truncatedDescription.Replace("<p>", "").Replace("</p>", "").Replace("</p","")...</p>
+                                            }
+                                        <div class="mt-4">
+                                            <a href="/BlogList/Detail?Id=@item.Value.Id" class="btn btn-primary">ادامه مطلب  </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div>
-                </div><!--end slide-->
-            </div>
-
-            <div class="carousel-item mt-4" data-bs-interval="3000">
-                <div class="bg-half-170" style="background: url('../../images/blog/bg2.jpg') center center;">
-                    <div class="bg-overlay"></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="title-heading text-center">
-                                    <h2 class="text-white title-dark mb-3">ملاقات کسب و کار</h2>
-                                    <ul class="list-unstyled">
-                                        <li class="list-inline-item small user text-white-50 me-2"><i class="uil uil-user text-white title-dark"></i> کالوین لورس</li>
-                                        <li class="list-inline-item small date text-white-50"><i class="uil uil-calendar-alt text-white title-dark"></i> اردیبهشت 1400</li>
-                                    </ul>
-                                    <p class="para-desc mx-auto text-white-50 mb-0">کار با مسیر سبز را شروع کنید که می تواند همه چیزهایی را که برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
-                                    <div class="mt-4">
-                                        <a href="javascript:void(0)" class="btn btn-primary">ادامه مطلب  </a>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div>
-                </div><!--end slide-->
-            </div>
-
-            <div class="carousel-item mt-4" data-bs-interval="3000">
-                <div class="bg-half-170" style="background: url('../images/blog/bg3.jpg') center center;">
-                    <div class="bg-overlay"></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="title-heading text-center">
-                                    <h2 class="text-white title-dark mb-3">خوشمزه و ارگانیک</h2>
-                                    <ul class="list-unstyled">
-                                        <li class="list-inline-item small user text-white-50 me-2"><i class="uil uil-user text-white title-dark"></i> کالوین لورس</li>
-                                        <li class="list-inline-item small date text-white-50"><i class="uil uil-calendar-alt text-white title-dark"></i> اردیبهشت 1400</li>
-                                    </ul>
-                                    <p class="para-desc mx-auto text-white-50 mb-0">کار با مسیر سبز را شروع کنید که می تواند همه چیزهایی را که برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
-                                    <div class="mt-4">
-                                        <a href="javascript:void(0)" class="btn btn-primary">ادامه مطلب  </a>
-                                    </div>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div>
-                </div><!--end slide-->
-            </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end slide-->
+                </div>
+            }
         </div>
         <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -115,86 +82,45 @@
             <div class="col-md-8">
                 <div class="section-title text-center text-md-start">
                     <h4 class="mb-4">پست های محبوب</h4>
-                    <p class="text-muted mb-0 para-desc">شروع به کار با <span class="text-primary fw-bold">مسیر سبز </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
+                    <p class="text-muted mb-0 para-desc">قدم به قدم با <span class="text-primary fw-bold">مسیر سبز </span> </p>
                 </div>
             </div><!--end col-->
 
             <div class="col-md-4 mt-4 mt-sm-0">
                 <div class="text-center text-md-end">
-                    <a href="javascript:void(0)" class="btn btn-soft-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
+                    <a href="/BlogList" class="btn btn-soft-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/01.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+            @foreach(var item in Model.SpecialPosts)
+            {
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card blog rounded border-0 shadow overflow-hidden">
+                        <div class="position-relative">
+                            <img src="@item.ImageSrc" class="card-img-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                        </div>
+                        <div class="card-body content">
+                            <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
+                            <div class="post-meta d-flex justify-content-between mt-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="fas fa-eye me-1"></i>@item.ViewCount</a></li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>0</a></li>
+                                </ul>
+                                <a href="/BlogList/Detail?Id=@item.Id" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
+                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> @item.InsertTime.ToPersianDate("ds dd ms Y")</small>
                         </div>
                     </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
                 </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/02.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/03.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
+                <!--end col-->
+            }
+            
         </div><!--end row-->
     </div><!--end container-->
 
@@ -203,258 +129,109 @@
             <div class="col-md-8">
                 <div class="section-title text-center text-md-start">
                     <h4 class="mb-4">پست های اخیر</h4>
-                    <p class="text-muted mb-0 para-desc">شروع به کار با <span class="text-primary fw-bold">مسیر سبز </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
+                    <p class="text-muted mb-0 para-desc">قدم به قدم با <span class="text-primary fw-bold">مسیر سبز </span> </p>
                 </div>
             </div><!--end col-->
 
             <div class="col-md-4 mt-4 mt-sm-0">
                 <div class="text-center text-md-end">
-                    <a href="javascript:void(0)" class="btn btn-soft-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
+                    <a href="/BlogList" class="btn btn-soft-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/04.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+            @foreach(var item in Model.RecentPosts)
+            {
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card blog rounded border-0 shadow overflow-hidden">
+                        <div class="position-relative">
+                            <img src="@item.ImageSrc" class="card-img-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                        </div>
+                        <div class="card-body content">
+                            <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
+                            <div class="post-meta d-flex justify-content-between mt-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="fas fa-eye me-1"></i>@item.ViewCount</a></li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>0</a></li>
+                                </ul>
+                                <a href="/BlogList/Detail?Id=@item.Id" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
+                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> @item.InsertTime.ToPersianDate("ds dd ms Y")</small>
                         </div>
                     </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
                 </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/05.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/06.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
+                <!--end col-->
+            }
         </div><!--end row-->
     </div><!--end container-->
     <!-- Cta start -->
-    <div class="container-fluid mt-100 mt-60">
-        <div class="rounded-md shadow-md py-5 position-relative" style="background: url('../images/3.jpg') center center;">
-            <div class="bg-overlay rounded-md"></div>
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title text-center">
-                            <h2 class="fw-bold text-white title-dark mb-4 pb-2">مردم در حال پادکست هستند <br> در سراسر جهان </h2>
-                            <a href="javascript:void(0)" class="btn btn-primary">ادامه مطلب  <i data-feather="arrow-left" class="fea icon-sm"></i></a>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end container-->
-        </div><!--end slide-->
-    </div><!--end container-->
-    <!-- Cta End -->
+    @foreach(var item in Model.MiddleWidePost)
+    {
+        <div class="container-fluid mt-100 mt-60">
+            <div class="rounded-md shadow-md py-5 position-relative" style="background: url('/@item.ImageSrc.Replace("\\","/")') center center;">
+                <div class="bg-overlay rounded-md"></div>
+                <div class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="section-title text-center">
+                                <h2 class="fw-bold text-white title-dark mb-4 pb-2">@item.Title</h2>
+                                <a href="/BlogList/Detail?Id=@item.Id" class="btn btn-primary">ادامه مطلب  <i data-feather="arrow-left" class="fea icon-sm"></i></a>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </div><!--end slide-->
+        </div>
+
+        <!--end container-->
+        <!-- Cta End -->
+    }
 
     <div class="container mt-100 mt-60">
         <div class="row align-items-center mb-4 pb-2">
             <div class="col-md-8">
                 <div class="section-title text-center text-md-start">
                     <h4 class="mb-4">همه اخبار یا پست وبلاگ</h4>
-                    <p class="text-muted mb-0 para-desc">شروع به کار با <span class="text-primary fw-bold">مسیر سبز </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
+                    <p class="text-muted mb-0 para-desc">قدم به قدم با <span class="text-primary fw-bold">مسیر سبز </span> </p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/01.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+            @foreach(var item in Model.AllPosts)
+            {
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="card blog rounded border-0 shadow overflow-hidden">
+                        <div class="position-relative">
+                            <img src="@item.ImageSrc" class="card-img-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                        </div>
+                        <div class="card-body content">
+                            <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
+                            <div class="post-meta d-flex justify-content-between mt-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="fas fa-eye me-1"></i>@item.ViewCount</a></li>
+                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>0</a></li>
+                                </ul>
+                                <a href="/BlogList/Detail?Id=@item.Id" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <small class="text-light user d-block"><i class="uil uil-user"></i> @item.UserName</small>
+                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> @item.InsertTime.ToPersianDate("ds dd ms Y")</small>
                         </div>
                     </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
                 </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/02.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/03.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/04.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/05.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="../images/blog/06.jpg" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                        <div class="post-meta d-flex justify-content-between mt-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                            </ul>
-                            <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                        <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                    </div>
-                </div>
-            </div><!--end col-->
-
+                <!--end col-->
+            }
             <div class="col-12 mt-4 pt-2">
                 <div class="text-center">
-                    <a href="javascript:void(0)" class="btn btn-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
+                    <a href="/BlogList" class="btn btn-primary">نمایش بیشتر <i data-feather="arrow-left" class="fea icon-sm"></i></a>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
