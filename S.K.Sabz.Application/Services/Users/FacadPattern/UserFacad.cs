@@ -1,6 +1,7 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Users.Commands.ChangeRole;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Application.Services.Users.Commands.RemoveUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
@@ -78,7 +79,14 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
 				return _userStatusChangeService = _userStatusChangeService ?? new UserStatusChangeService(_context);
 			}
 		}
-		
+		private ChangeRoleService _ChangeRoleService;
+		public ChangeRoleService ChangeRoleService
+		{
+			get
+			{
+				return _ChangeRoleService = _ChangeRoleService ?? new ChangeRoleService(_context);
+			}
+		}
 
 	}
 }

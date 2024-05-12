@@ -1,4 +1,5 @@
 ﻿using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Users.Commands.ChangeRole;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Application.Services.Users.Commands.RemoveUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
@@ -21,6 +22,7 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
 		IGetAllUsersService GetAllUsersService { get; }
         RemoveUserService RemoveUserService { get; }
 		UserStatusChangeService UserStatusChangeService { get; }
+		ChangeRoleService ChangeRoleService { get; }
 
 	}
 }

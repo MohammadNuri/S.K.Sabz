@@ -16,7 +16,12 @@ namespace S.K.Sabz.Areas.Admin.Controllers
 
         public IActionResult Index(string searchKey, int page = 1)
         {
-            return View(_userFacad.GetAllUsersService.Execute(new RequestUserDto
+			// Retrieve all request headers
+			var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+			ViewBag.Ip = ipAddress;
+
+			return View(_userFacad.GetAllUsersService.Execute(new RequestUserDto
             {
                 Page = page,
                 SearchKey = searchKey    
@@ -39,6 +44,21 @@ namespace S.K.Sabz.Areas.Admin.Controllers
             var result = _userFacad.UserStatusChangeService.Execute(userId);
 			return Json(result);
         }
+
+
+		[HttpPost]
+		public IActionResult MakeRoleAdmin(long userId)
+		{
+			var result = _userFacad.ChangeRoleService.MakeAdmin(userId);
+			return Json(result);
+		}
+
+		[HttpPost]
+		public IActionResult MakeRoleCustomer(long userId)
+		{
+			var result = _userFacad.ChangeRoleService.MakeCustomer(userId);
+			return Json(result);
+		}
 
 
 

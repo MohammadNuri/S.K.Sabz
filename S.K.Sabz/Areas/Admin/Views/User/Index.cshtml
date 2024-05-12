@@ -67,7 +67,7 @@
 									<span class="path1"></span>
 									<span class="path2"></span>
 								</i>
-								<input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="جستجو مشتریان" />
+								<input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="جستجو کاربران" />
 							</div>
 							<!--end::جستجو-->
 						</div>
@@ -140,7 +140,14 @@
 											<a href="#" class="text-gray-600 text-hover-primary mb-1">@item.PhoneNumber</a>
 										</td>
 										<td>
-											<div class="badge badge-light-success">@item.Roles.Replace("Customer","کاربر")</div>
+											@if (item.Roles.Contains("Customer"))
+											{
+												<div class="badge badge-light-success">@item.Roles.Replace("Customer", "کاربر")</div>
+											}
+											else if (item.Roles.Contains("Admin"))
+											{
+												<div class="badge badge-light-info">@item.Roles.Replace("Admin", "مدیر")</div>
+											}
 										</td>
 										<td>
 											<!--begin::Badges-->
@@ -155,7 +162,7 @@
 											
 											<!--end::Badges-->
 										</td>
-										<td>آی پی</td>
+										<td>@ViewBag.Ip</td>
 										<td>@item.InsertTime.ToPersianDate("ds dd ms Y")</td>
 										<td class="text-end">
 											<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -169,6 +176,23 @@
 													<a href="../../demo1/dist/apps/customers/view.html" class="menu-link px-3">نمایش</a>
 												</div>
 												<!--end::Menu item-->
+												@if (item.Roles.Contains("Customer"))
+												{
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" onclick="MakeAdmin('@item.Id')" class="menu-link px-3">مدیر شود</a>
+													</div>
+													<!--end::Menu item-->
+												}
+
+												else if (item.Roles.Contains("Admin"))
+												{
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" onclick="MakeCustomer('@item.Id')" class="menu-link px-3">کاربر شود</a>
+													</div>
+													<!--end::Menu item-->
+												}
 
 												@if (item.IsActive)
 												{
@@ -213,5 +237,6 @@
 {
 		<script src="~/AdminTemplate/assets/js/remove.user.js"></script>
 		<script src="~/AdminTemplate/assets/js/user.status.change.js"></script>
+     	<script src="~/AdminTemplate/assets/js/change.role.js"></script>
 	    
 }
