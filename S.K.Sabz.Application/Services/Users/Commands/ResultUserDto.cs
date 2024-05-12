@@ -9,6 +9,7 @@ namespace S.K.Sabz.Application.Services.Users.Commands
     public class ResultUserDto
     {
         public long UserId { get; set; }
-        public string PhoneNumber { get; set; } = string.Empty;
+		public string Roles { get; set; } = string.Empty;
+		public string PhoneNumber { get; set; } = string.Empty;
     }
 }

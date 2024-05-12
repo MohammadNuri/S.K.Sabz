@@ -16,6 +16,7 @@ using S.K.Sabz.Application.Services.Users.Queries.GetUserIdByPhoneNumber;
 using S.K.Sabz.Application.Services.Users.Commands.AddUserInfo;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
+using System.Data;
 
 namespace S.K.Sabz.Controllers
 {
@@ -62,9 +63,20 @@ namespace S.K.Sabz.Controllers
                 return Json(new ResultDto { IsSuccess = false, Message = "شما به حساب کاربری خود وارد شده اید! و در حال حاضر نمیتوانید مجدد وارد شوید" });
             }
 
-            var loginDto = new LoginUserDto { PhoneNumber = request.PhoneNumber }; // Create a LoginUserDto object
+			// Create a LoginUserDto object
+			var loginDto = new LoginUserDto
+			{
+				PhoneNumber = request.PhoneNumber,
+				Roles = new List<RolesInLoginUserDto>()
+				{
+					new RolesInLoginUserDto
+					{
+						Id = 3
+					}
+				}
+			}; 
 
-            var userResult = _userFacad.LoginUserService.LoginExecute(loginDto); // Call the LoginExecute method
+            var userResult = await _userFacad.LoginUserService.LoginExecuteAsync(loginDto); // Call the LoginExecute method
 
 
 
@@ -81,11 +93,20 @@ namespace S.K.Sabz.Controllers
 
 				if (checkUserInfo.IsSuccess == false)
 				{
+					var roles = userResult.Data.Roles;
+
 					var firstClaims = new List<Claim>
 					{
 					   new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
 					   new Claim(ClaimTypes.Name, request.PhoneNumber),
 					};
+					if (!string.IsNullOrWhiteSpace(roles))
+					{
+						// Split the roles and add them as claims
+						var roleClaims = roles.Split(',').Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+						firstClaims.AddRange(roleClaims);
+					}
+
 					var firstIdentity = new ClaimsIdentity(firstClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 					var firstPrincipal = new ClaimsPrincipal(firstIdentity);
 					var firstProperties = new AuthenticationProperties
@@ -99,14 +120,20 @@ namespace S.K.Sabz.Controllers
 				}
 				else
 				{
-
+					var roles = userResult.Data.Roles;
 					var claims = new List<Claim>
 					 {
 					  new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
 					  new Claim(ClaimTypes.Name, request.PhoneNumber),
 					  new Claim(ClaimTypes.GivenName, checkUserInfo.Data.FirstName),
-					  new Claim(ClaimTypes.Surname, checkUserInfo.Data.LastName)
+					  new Claim(ClaimTypes.Surname, checkUserInfo.Data.LastName),
 						 };
+					if (!string.IsNullOrWhiteSpace(roles))
+					{
+						// Split the roles and add them as claims
+						var roleClaims = roles.Split(',').Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+						claims.AddRange(roleClaims);
+					}
 					var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 					var principal = new ClaimsPrincipal(identity);
 					var properties = new AuthenticationProperties
@@ -184,5 +211,10 @@ namespace S.K.Sabz.Controllers
             return RedirectToAction("Login", "Authentication");
         }
 
-    }
+		public IActionResult AccessDenied()
+		{
+            return RedirectToAction("Error", "Home", new { errorMessage = "شما به این بخش دسترسی ندارید!" });
+        }
+
+	}
 }

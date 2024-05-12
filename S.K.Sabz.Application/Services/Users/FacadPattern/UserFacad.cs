@@ -2,7 +2,9 @@
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
+using S.K.Sabz.Application.Services.Users.Commands.RemoveUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
+using S.K.Sabz.Application.Services.Users.Commands.UserStatusChange;
 using S.K.Sabz.Application.Services.Users.Queries.GetAllUsers;
 using S.K.Sabz.Application.Services.Users.Queries.GetUserById;
 using System;
@@ -60,5 +62,23 @@ namespace S.K.Sabz.Application.Services.Users.FacadPattern
                 return _updateUserInfoService = _updateUserInfoService ?? new UpdateUserInfoService(_context);
             }
         }
-    }
+        private RemoveUserService _removeUserService;
+        public RemoveUserService RemoveUserService
+        {
+            get
+            {
+                return _removeUserService = _removeUserService ?? new RemoveUserService(_context);
+            }
+        }
+		private UserStatusChangeService _userStatusChangeService;
+		public UserStatusChangeService UserStatusChangeService
+		{
+			get
+			{
+				return _userStatusChangeService = _userStatusChangeService ?? new UserStatusChangeService(_context);
+			}
+		}
+		
+
+	}
 }

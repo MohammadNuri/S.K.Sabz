@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using S.K.Sabz.Common.Roles;
 
 namespace S.K.Sabz.Areas.Admin.Controllers
 {
-
-    [Area("Admin")]
+	[Authorize(Policy = UserRoles.Admin)]
+	[Area("Admin")]
     public class AdminHomeController : Controller
     {
         public IActionResult Index()

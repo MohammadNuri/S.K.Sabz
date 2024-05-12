@@ -32,8 +32,9 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie(options =>
 {
-    options.LoginPath = new PathString("/authentication/signin");
+    options.LoginPath = new PathString("/Authentication/Login");
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+	options.AccessDeniedPath = "/Authentication/AccessDenied";
 });
 
 

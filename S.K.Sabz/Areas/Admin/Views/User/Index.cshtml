@@ -110,6 +110,7 @@
 									</th>
 									<th class="min-w-125px">نام کامل</th>
 									<th class="min-w-125px">شماره تلفن</th>
+									<th class="min-w-125px">نقش کاربر</th>
 									<th class="min-w-125px">وضعیت</th>
 									<th class="min-w-125px">آدرس ای پی</th>
 									<th class="min-w-125px">تاریخ ثبت نام</th>
@@ -139,6 +140,9 @@
 											<a href="#" class="text-gray-600 text-hover-primary mb-1">@item.PhoneNumber</a>
 										</td>
 										<td>
+											<div class="badge badge-light-success">@item.Roles.Replace("Customer","کاربر")</div>
+										</td>
+										<td>
 											<!--begin::Badges-->
 											@if (!item.IsActive)
 											{
@@ -165,9 +169,27 @@
 													<a href="../../demo1/dist/apps/customers/view.html" class="menu-link px-3">نمایش</a>
 												</div>
 												<!--end::Menu item-->
+
+												@if (item.IsActive)
+												{
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3" onclick="UserStatusChange('@item.Id')" data-kt-customer-table-filter="delete_row">غیر فعال سازی</a>
+													</div>
+													<!--end::Menu item-->
+												}
+												else
+												{
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3" onclick="UserStatusChange('@item.Id')" data-kt-customer-table-filter="delete_row">فعال سازی</a>
+													</div>
+													<!--end::Menu item-->
+												}
+
 												<!--begin::Menu item-->
 												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3" data-kt-customer-table-filter="delete_row">حذف</a>
+													<a href="#" class="menu-link px-3" onclick="RemoveUser('@item.Id')" data-kt-customer-table-filter="delete_row">حذف</a>
 												</div>
 												<!--end::Menu item-->
 											</div>
@@ -185,3 +207,11 @@
 					<!--end::کارت body-->
 				</div>
 				<!--end::کارت-->
+
+												
+@section Scripts
+{
+		<script src="~/AdminTemplate/assets/js/remove.user.js"></script>
+		<script src="~/AdminTemplate/assets/js/user.status.change.js"></script>
+	    
+}

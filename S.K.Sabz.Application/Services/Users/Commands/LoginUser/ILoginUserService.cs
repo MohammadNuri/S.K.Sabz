@@ -9,8 +9,7 @@ namespace S.K.Sabz.Application.Services.Users.Commands.LoginUser
 {
     public interface ILoginUserService
     {
-        ResultDto<ResultUserDto> LoginExecute(LoginUserDto request);
-
-    }
+		Task<ResultDto<ResultUserDto>> LoginExecuteAsync(LoginUserDto request);
+	}
 
 }

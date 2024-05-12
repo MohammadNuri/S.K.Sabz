@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Users.Queries.GetAllUsers;
 
@@ -22,7 +23,25 @@ namespace S.K.Sabz.Areas.Admin.Controllers
             }));
         }
 
+        [HttpPost]
+        public IActionResult RemoveUser(long userId)
+        {
+
+            var result = _userFacad.RemoveUserService.Execute(userId);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public IActionResult UserStatusChange(long userId)
+        {
+
+            var result = _userFacad.UserStatusChangeService.Execute(userId);
+			return Json(result);
+        }
 
 
-    }
+
+
+	}
 }
