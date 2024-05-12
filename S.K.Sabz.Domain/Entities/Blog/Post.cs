@@ -19,8 +19,8 @@ namespace S.K.Sabz.Domain.Entities.Blog
         public Position Position { get; set; }
 
 
-        //Many to One
-        public virtual Category Category { get; set; } 
+		//Many to One
+		public virtual Category Category { get; set; } 
         public long CategoryId { get; set; } //Forigen Key
 
         public virtual User User { get; set; }

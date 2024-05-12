@@ -15,12 +15,12 @@ namespace S.K.Sabz.Domain.Entities.Users
 		public string? LastName { get; set; } = string.Empty;
 		public string PhoneNumber { get; set; } = string.Empty;
         public bool IsActive { get; set; }
-		public ICollection<UserInRole> UserInRoles { get; set; } = new List<UserInRole>();
 		public UserInfo UserInfo { get; set; } // Navigation property for additional user information
 
 
-        //Many to one
-        public virtual ICollection<Post> Posts { get; set; }
+		//Many to one
+		public virtual ICollection<UserInRole> UserInRoles { get; set; }
+		public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<PostComment> PostComments { get; }
     }
 }

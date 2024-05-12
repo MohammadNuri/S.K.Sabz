@@ -24,12 +24,14 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite
         public ResultDto<PostForSiteDto> Execute(Ordering ordering, string? searchKey, long? catId, int page, int pageSize, bool isSpecial, Position position,bool topPost)
         {
             int totalRow = 0;
-            var postQuery = _context.Posts
-                .Include(c => c.PostImages)
-                .Include(c => c.User)
-                .AsQueryable();
+			var postQuery = _context.Posts
+				.Include(c => c.PostImages)
+				.Include(c => c.User)
+				.AsQueryable();
 
-            if (catId != null)
+
+
+			if (catId != null)
             {
                 postQuery = postQuery.Where(c => c.CategoryId == catId || c.Category.ParentId == catId).AsQueryable();
             }
@@ -94,8 +96,6 @@ namespace S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite
                 IsSuccess = true,
                 Message = "لیست با موفقیت برگشت داده شد"
             };
-
         }
-
-    }
+	}
 }

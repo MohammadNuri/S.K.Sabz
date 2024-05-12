@@ -17,6 +17,7 @@ using S.K.Sabz.Application.Services.Users.Commands.AddUserInfo;
 using S.K.Sabz.Application.Services.Users.Commands.LoginUser;
 using S.K.Sabz.Application.Services.Users.Commands.UpdateUserInfo;
 using System.Data;
+using System.Linq;
 
 namespace S.K.Sabz.Controllers
 {
@@ -131,7 +132,9 @@ namespace S.K.Sabz.Controllers
 					if (!string.IsNullOrWhiteSpace(roles))
 					{
 						// Split the roles and add them as claims
-						var roleClaims = roles.Split(',').Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+						var roleClaims = roles.ToString().Split(',')
+							.Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+
 						claims.AddRange(roleClaims);
 					}
 					var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -184,12 +187,14 @@ namespace S.K.Sabz.Controllers
 				return View("Error");
 			}
 			// Update claims
+
 			var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, userIdClaim.Value.ToString()),
             new Claim(ClaimTypes.Name, userIdClaim.Subject.Name),
             new Claim(ClaimTypes.GivenName, userInfo.FirstName),
             new Claim(ClaimTypes.Surname, userInfo.LastName)
+
         };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S.K.Sabz.Persistence.Context;
 
@@ -11,9 +12,11 @@ using S.K.Sabz.Persistence.Context;
 namespace S.K.Sabz.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240512133239_fix_user")]
+    partial class fix_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,7 +223,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 5, 12, 18, 4, 50, 200, DateTimeKind.Local).AddTicks(7521),
+                            InsertTime = new DateTime(2024, 5, 12, 17, 2, 37, 841, DateTimeKind.Local).AddTicks(8045),
                             IsRemoved = false,
                             Name = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -228,7 +231,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 5, 12, 18, 4, 50, 200, DateTimeKind.Local).AddTicks(7593),
+                            InsertTime = new DateTime(2024, 5, 12, 17, 2, 37, 841, DateTimeKind.Local).AddTicks(8094),
                             IsRemoved = false,
                             Name = "Patient",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -236,7 +239,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 5, 12, 18, 4, 50, 200, DateTimeKind.Local).AddTicks(7614),
+                            InsertTime = new DateTime(2024, 5, 12, 17, 2, 37, 841, DateTimeKind.Local).AddTicks(8109),
                             IsRemoved = false,
                             Name = "Customer",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
