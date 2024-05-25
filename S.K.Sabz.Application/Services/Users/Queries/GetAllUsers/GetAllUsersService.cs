@@ -19,20 +19,28 @@ namespace S.K.Sabz.Application.Services.Users.Queries.GetAllUsers
             _context = context;
         }
 
-        public ResultUsersDto Execute(RequestUserDto request)
+        public ResultUsersDto Execute(string? searchKey, int page , int pageSize)
 		{
+			int totalRow = 0;
 			var users = _context.Users
 				.Include(p => p.UserInRoles)
 				.ThenInclude(p => p.Role)
                 .AsQueryable();
 
-			if (!string.IsNullOrWhiteSpace(request.SearchKey))
+			if (!string.IsNullOrWhiteSpace(searchKey))
 			{
-				users = users.Where(p => p.FirstName.Contains(request.SearchKey) && p.LastName.Contains(request.SearchKey));
-			}
-			int rowCount = 0;
+				var searchKeys = searchKey.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-			var userList = users.ToPaged(request.Page , 20 , out rowCount).Select(p => new UserDto
+				users = users.Where(p => searchKeys.Any(key =>
+					p.FirstName.Contains(key) ||
+					p.LastName.Contains(key) ||
+					p.PhoneNumber.Contains(key)
+				));
+			}
+
+			var userList = users
+				.ToPaged(page, pageSize, out totalRow)
+				.Select(p => new UserDto
 			{
 				Id = p.Id,
 				FirstName = p.FirstName,
@@ -46,8 +54,8 @@ namespace S.K.Sabz.Application.Services.Users.Queries.GetAllUsers
 
 			return new ResultUsersDto
 			{
-				Rows = rowCount,
-				Users = userList
+				TotalRow = totalRow,
+				Users = userList,
 			};
 		}
 	}

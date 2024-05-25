@@ -1,4 +1,14 @@
-﻿function Login(event) {
+﻿document.addEventListener("DOMContentLoaded", function () {
+    // Attach an event listener to the input field to handle Enter key press
+    document.getElementById("PhoneNumber").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default form submission
+            Login(event); // Call the Login function
+        }
+    });
+});
+
+function Login(event) {
     // Prevent the default form submission behavior
     event.preventDefault();
 

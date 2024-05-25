@@ -3,6 +3,6 @@
 	public class ResultUsersDto
 	{
 		public List<UserDto> Users { get; set; }
-		public int Rows { get; set; }
-	}
+        public int TotalRow { get; set; }
+    }
 }

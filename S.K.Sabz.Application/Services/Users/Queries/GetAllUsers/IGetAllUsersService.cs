@@ -9,6 +9,6 @@ namespace S.K.Sabz.Application.Services.Users.Queries.GetAllUsers
 {
 	public interface IGetAllUsersService
 	{
-		ResultUsersDto Execute(RequestUserDto request);
+		ResultUsersDto Execute(string? searchKey, int page, int pageSize);
 	}
 }

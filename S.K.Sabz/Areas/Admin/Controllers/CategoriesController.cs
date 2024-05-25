@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Common;
+using S.K.Sabz.Common.Roles;
 
 namespace S.K.Sabz.Areas.Admin.Controllers
 {
-
+	[Authorize(Policy = UserRoles.Admin)]
 	[Area("Admin")]
 	public class CategoriesController : Controller
 	{

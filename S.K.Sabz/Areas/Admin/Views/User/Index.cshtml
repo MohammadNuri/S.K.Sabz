@@ -1,10 +1,15 @@
-﻿@using S.K.Sabz.Application.Services.Common;
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using S.K.Sabz.Application.Services.Common;
 @using S.K.Sabz.Application.Services.Users.Queries.GetAllUsers;
 @model ResultUsersDto
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	int pageNumber = 1;
+	int pageSize = 20;
+	int.TryParse(Context.Request.Query["page"], out pageNumber);
+	int.TryParse(Context.Request.Query["pageSize"], out pageSize);
 }
 
 <!--begin::اصلی-->
@@ -20,11 +25,12 @@
 					<!--begin::Title-->
 					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">لیست کاربران</h1>
 					<!--end::Title-->
+					<br />
 					<!--begin::Breadcrumb-->
 					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
 						<!--begin::item-->
 						<li class="breadcrumb-item text-muted">
-							<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">خانه</a>
+							<a href="#" class="text-muted text-hover-primary">کاربران</a>
 						</li>
 						<!--end::item-->
 						<!--begin::item-->
@@ -33,15 +39,9 @@
 						</li>
 						<!--end::item-->
 						<!--begin::item-->
-						<li class="breadcrumb-item text-muted">تجارت</li>
-						<!--end::item-->
-						<!--begin::item-->
-						<li class="breadcrumb-item">
-							<span class="bullet bg-gray-400 w-5px h-2px"></span>
+						<li class="breadcrumb-item text-muted">
+							<a href="~/Admin/User" class="text-muted text-hover-primary">مدیریت کاربران</a>
 						</li>
-						<!--end::item-->
-						<!--begin::item-->
-						<li class="breadcrumb-item text-muted">مشتریان</li>
 						<!--end::item-->
 					</ul>
 					<!--end::Breadcrumb-->
@@ -67,7 +67,7 @@
 									<span class="path1"></span>
 									<span class="path2"></span>
 								</i>
-								<input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="جستجو کاربران" />
+								<input type="text" id="searchInput" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="جستجو کاربران" />
 							</div>
 							<!--end::جستجو-->
 						</div>
@@ -217,17 +217,42 @@
 												</div>
 												<!--end::Menu item-->
 											</div>
+
 											<!--end::Menu-->
 										</td>
 									</tr>
+
 								}
-						
 
 							</tbody>
 							<!--end::Table body-->
 						</table>
 						<!--end::Table-->
 					</div>
+					<!-- PAGINATION START -->
+					<div class="pagination-product">
+						<nav aria-label="Page navigation example">
+							<paging total-records="@Model.TotalRow"
+									page-no="@pageNumber==0?1:pageNumber"
+									page-size="@pageSize==0?20:pageSize"
+									show-prev-next="true"
+									show-total-pages="false"
+									show-total-records="false"
+									show-page-size-nav="true"
+									show-first-numbered-page="true"
+									show-last-numbered-page="true"
+									query-string-key-page-no="Page"
+									query-string-key-page-size="PageSize"
+									query-string-value="@@(Request.QueryString.Value)"
+									gap-size="2"
+									sr-text-first="اولین"
+									sr-text-last="آخرین"
+									sr-text-previous="قبلی"
+									sr-text-next="بعدی">
+							</paging>
+						</nav>
+					</div>
+					<!-- PAGINATION END -->
 					<!--end::کارت body-->
 				</div>
 				<!--end::کارت-->
@@ -238,5 +263,6 @@
 		<script src="~/AdminTemplate/assets/js/remove.user.js"></script>
 		<script src="~/AdminTemplate/assets/js/user.status.change.js"></script>
      	<script src="~/AdminTemplate/assets/js/change.role.js"></script>
-	    
+    	<script src="~/AdminTemplate/assets/js/custom/search.input.js"></script>
+
 }

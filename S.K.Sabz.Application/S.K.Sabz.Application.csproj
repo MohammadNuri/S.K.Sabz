@@ -17,6 +17,7 @@
   <ItemGroup>
     <Folder Include="Interfaces\Common\" />
     <Folder Include="Properties\" />
+    <Folder Include="Services\Users\Commands\AddUserForAdmin\" />
   </ItemGroup>
 
   <ItemGroup>

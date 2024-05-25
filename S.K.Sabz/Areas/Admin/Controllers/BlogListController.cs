@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
@@ -6,11 +7,13 @@ using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Common.ErrorHandling;
 using S.K.Sabz.Common;
 using S.K.Sabz.Common.Dto;
+using S.K.Sabz.Common.Roles;
 using System.Security.Claims;
 
 namespace S.K.Sabz.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Policy = UserRoles.Admin)]
+	[Area("Admin")]
     public class BlogListController : Controller
     {
         private readonly IBlogFacad _blogFacad;

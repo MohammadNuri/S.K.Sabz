@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
-using S.K.Sabz.Application.Services.Users.Queries.GetAllUsers;
+using S.K.Sabz.Common.Roles;
 
 namespace S.K.Sabz.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Authorize(Policy = UserRoles.Admin)]
+	[Area("Admin")]
     public class UserController : Controller
     {
         private readonly IUserFacad _userFacad;
@@ -14,18 +15,14 @@ namespace S.K.Sabz.Areas.Admin.Controllers
             _userFacad = userFacad;
         }
 
-        public IActionResult Index(string searchKey, int page = 1)
+        public IActionResult Index(string? searchKey, int page = 1, int pageSize = 20)
         {
 			// Retrieve all request headers
 			var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
 
 			ViewBag.Ip = ipAddress;
 
-			return View(_userFacad.GetAllUsersService.Execute(new RequestUserDto
-            {
-                Page = page,
-                SearchKey = searchKey    
-            }));
+			return View(_userFacad.GetAllUsersService.Execute(searchKey,page,pageSize));
         }
 
         [HttpPost]
