@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S.K.Sabz.Persistence.Context;
 
@@ -11,9 +12,11 @@ using S.K.Sabz.Persistence.Context;
 namespace S.K.Sabz.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240526184843__fix_post_comments")]
+    partial class _fix_post_comments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,9 +132,6 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("ParentCommentId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("PostId")
                         .HasColumnType("bigint");
 
@@ -149,8 +149,6 @@ namespace S.K.Sabz.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentCommentId");
 
                     b.HasIndex("PostId");
 
@@ -225,7 +223,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2024, 5, 27, 0, 3, 57, 986, DateTimeKind.Local).AddTicks(2522),
+                            InsertTime = new DateTime(2024, 5, 26, 22, 18, 42, 758, DateTimeKind.Local).AddTicks(5748),
                             IsRemoved = false,
                             Name = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -233,7 +231,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2024, 5, 27, 0, 3, 57, 986, DateTimeKind.Local).AddTicks(2569),
+                            InsertTime = new DateTime(2024, 5, 26, 22, 18, 42, 758, DateTimeKind.Local).AddTicks(5799),
                             IsRemoved = false,
                             Name = "Patient",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -241,7 +239,7 @@ namespace S.K.Sabz.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2024, 5, 27, 0, 3, 57, 986, DateTimeKind.Local).AddTicks(2584),
+                            InsertTime = new DateTime(2024, 5, 26, 22, 18, 42, 758, DateTimeKind.Local).AddTicks(5815),
                             IsRemoved = false,
                             Name = "Customer",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -456,10 +454,6 @@ namespace S.K.Sabz.Persistence.Migrations
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.PostComment", b =>
                 {
-                    b.HasOne("S.K.Sabz.Domain.Entities.Blog.PostComment", "ParentComment")
-                        .WithMany("Replies")
-                        .HasForeignKey("ParentCommentId");
-
                     b.HasOne("S.K.Sabz.Domain.Entities.Blog.Post", "Post")
                         .WithMany("PostComments")
                         .HasForeignKey("PostId")
@@ -471,8 +465,6 @@ namespace S.K.Sabz.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("ParentComment");
 
                     b.Navigation("Post");
 
@@ -530,11 +522,6 @@ namespace S.K.Sabz.Persistence.Migrations
                     b.Navigation("PostComments");
 
                     b.Navigation("PostImages");
-                });
-
-            modelBuilder.Entity("S.K.Sabz.Domain.Entities.Blog.PostComment", b =>
-                {
-                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("S.K.Sabz.Domain.Entities.Users.Role", b =>

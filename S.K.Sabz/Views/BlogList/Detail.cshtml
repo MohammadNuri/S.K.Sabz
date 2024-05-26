@@ -1,5 +1,6 @@
 ﻿@using S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite;
 @using S.K.Sabz.Application.Services.Common;
+@using System.Security.Claims
 @model PostDetailForSiteDto
 @{
     ViewData["Title"] = "Detail";
@@ -17,9 +18,8 @@
                     <div class="page-next">
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                <li class="breadcrumb-item"><a href="index.html">مسیر سبز </a></li>
-                                <li class="breadcrumb-item"><a href="#">وبلاگ </a></li>
-                                <li class="breadcrumb-item active" aria-current="page">جزئیات وبلاگ</li>
+                                <li class="breadcrumb-item"><a href="/">مسیر سبز </a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> وبلاگ</li>
                             </ul>
                         </nav>
                     </div>
@@ -74,42 +74,11 @@
                         <h5 class="mt-4">نظرات :</h5>
 
                         <ul class="media-list list-unstyled mb-0">
-                            <li class="mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <a class="pe-3" href="#">
-                                            <img src="~/images/client/UserUnknow.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                        </a>
-                                        <div class="flex-1 commentor-detail">
-                                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">لورنزو پیترسون</a></h6>
-                                            <small class="text-muted">اردیبهشت 1400 - ساعت 14:40 بعد ظهر</small>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> پاسخ </a>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="text-muted fst-italic p-3 bg-light rounded">" تعداد زیادی از معابر لورم اپیسون در دسترس است ، اما اکثر آنها به نوعی دچار تغییر شده اند, با شوخ طبعی تزریق شده "</p>
-                                </div>
-                            </li>
 
-                            <li class="mt-4">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <a class="pe-3" href="#">
-                                            <img src="~/images/client/UserUnknow.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                        </a>
-                                        <div class="flex-1 commentor-detail">
-                                            <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">تامی کاماچو</a></h6>
-                                            <small class="text-muted">شانزدهم اردیبهشت 1400 در ساعت 03:44 بعد از ظهر</small>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> پاسخ </a>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="text-muted fst-italic p-3 bg-light rounded">" تعداد زیادی از معابر لورم اپیسون در دسترس است ، اما اکثر آنها به نوعی دچار تغییر شده اند, با شوخ طبعی تزریق شده "</p>
-                                </div>
-
-                                <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
+                            @if (Model.PostComments != null && Model.PostComments.Any())
+                            {
+                                foreach (var comments in Model.PostComments)
+                                {
                                     <li class="mt-4">
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center">
@@ -117,61 +86,109 @@
                                                     <img src="~/images/client/UserUnknow.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                 </a>
                                                 <div class="flex-1 commentor-detail">
-                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">لورنزو پیترسون</a></h6>
-                                                    <small class="text-muted">شانزدهم اردیبهشت 1400 در ساعت 03:44 بعد از ظهر</small>
+                                                    <h6 class="mb-0">
+                                                        <a href="javascript:void(0)" class="text-primary media-heading">
+
+                                                            @(string.IsNullOrWhiteSpace(comments.UserName?.Trim()) ? "بدون نام" : comments.UserName.Trim())
+
+                                                        </a>
+                                                    </h6>
+                                                    <small class="text-muted">@comments.InsertTime.ToPersianDate("ds dd ms Y")</small>
                                                 </div>
                                             </div>
-                                            <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> پاسخ </a>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                var userRole = User.FindFirst(ClaimTypes.Role);
+                                                if (userRole != null && userRole.Value.Contains("Admin"))
+                                                {
+                                                    <a href="#" class="text-muted reply-btn" data-bs-toggle="modal" data-bs-target="#add-category" data-comment-id="@comments.Id"><i class="mdi mdi-reply"></i> پاسخ </a>
+                                                }
+                                            }
+                                            
                                         </div>
                                         <div class="mt-3">
-                                            <p class="text-muted fst-italic p-3 bg-light rounded">" تعداد زیادی از معابر لورم اپیسون در دسترس است ، اما اکثر آنها به نوعی دچار تغییر شده اند, با شوخ طبعی تزریق شده "</p>
+                                            <p class="p-3 bg-light rounded"> @comments.Text </p>
                                         </div>
                                     </li>
-                                </ul>
-                            </li>
+                                    @if(comments.Replies != null && comments.Replies.Any())
+                                    {
+                                        @foreach(var replies in comments.Replies)
+                                        {
+                                            <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
+                                                <li class="mt-4">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex align-items-center">
+                                                            <a class="pe-3" href="#">
+                                                                <img src="~/images/client/UserUnknow.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                            </a>
+                                                            <div class="flex-1 commentor-detail">
+                                                                <h6 class="mb-0"><a href="javascript:void(0)" class="text-danger media-heading">پاسخ مدیر: (@replies.UserName)</a></h6>
+                                                                <small class="text-muted">@replies.InsertTime.ToPersianDate("ds dd ms Y")</small>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <p class="p-3 bg-light rounded"> @replies.Text </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        }
+ 
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <h6>نظری ثبت نشده</h6>
+                            }
                         </ul>
 
                         <h5 class="mt-4">ارسال نظر :</h5>
 
-                        <form class="mt-3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">نظر شما</label>
-                                        <div class="form-icon position-relative">
-                                            <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                            <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                        <form method="post" class="mt-3" id="commentForm">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نظر شما</label>
+                                            <div class="form-icon position-relative">
+                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
+                                                <textarea id="commentText" name="Text" placeholder="نظر یا سوال شما" rows="5" class="form-control ps-5" required=""></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div><!--end col-->
+                                    </div><!--end col-->
 
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">نام  <span class="text-danger">*</span></label>
-                                        <div class="form-icon position-relative">
-                                            <i data-feather="user" class="fea icon-sm icons"></i>
-                                            <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                    <div class="col-md-12">
+                                        <div class="send d-grid">
+                                            <button type="button" onclick="AddComment(event, '@Model.Id')" class="btn btn-primary">ثبت نظر</button>
                                         </div>
-                                    </div>
-                                </div><!--end col-->
-
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
-                                        <div class="form-icon position-relative">
-                                            <i data-feather="mail" class="fea icon-sm icons"></i>
-                                            <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
-                                        </div>
-                                    </div>
-                                </div><!--end col-->
-
+                                    </div><!--end col-->
+                                </div>
+                                <!--end row-->
+                            }
+                            else
+                            {
                                 <div class="col-md-12">
                                     <div class="send d-grid">
-                                        <button type="submit" class="btn btn-primary">ارسال پیام</button>
+
+                                        <button onclick="redirectToLogin()" class="btn btn-danger">برای ثبت نظر ابتدا وارد شوید!</button>
+
+                                        <script>
+                                            function redirectToLogin() {
+                                                var currentUrl = window.location.href;
+                                                window.location.href = "/Authentication/Login?redirectUrl=" + encodeURIComponent(currentUrl);
+                                            }
+                                        </script>
                                     </div>
-                                </div><!--end col-->
-                            </div><!--end row-->
+                                </div>
+
+                                <!--end col-->
+                            }
+
                         </form><!--end form-->
+
                     </div>
                 </div>
             </div>
@@ -179,3 +196,58 @@
     </div>
 </section>
 
+@section Modals
+{
+
+    <div class="modal fade" id="add-category" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog  modal-sm modal-dialog-centered">
+            <div class="modal-content rounded shadow border-0">
+                <div class="modal-body p-0">
+                    <div class="container-fluid px-0">
+                        <form method="post" class="login-form p-4">
+                            <div class="row">
+                                <div>
+                                    <div class="mb-3">
+                                        <label class="form-label">پاسخ به نظر <span class="text-danger">*</span></label>
+                                        <div class="form-icon position-relative">
+                                            <i data-feather="user" class="fea icon-sm icons"></i>
+                                            <textarea id="Reply" class="form-control ps-5 larger-textarea" placeholder="پاسخ شما"></textarea>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <!-- Add a hidden input field to capture the comment ID -->
+                                <input type="hidden" id="ReplyCommentId" name="ReplyCommentId" value="">
+
+                                <div class="col-lg-12 mb-0">
+                                    <div class="d-grid">
+                                        <!-- Modify the button to trigger the AddReply function -->
+                                        <button type="button" onclick="AddReply(event,'@Model.Id')" class="btn btn-primary">ثبت</button>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </form>
+                    </div><!--end container-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts
+{
+    <script src="~/AdminTemplate/assets/js/widgets.bundle.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/widgets.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/apps/chat/chat.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/utilities/modals/create-app.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/utilities/modals/users-search.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/utilities/modals/create-campaign.js"></script>
+    <script src="~/AdminTemplate/assets/js/custom/utilities/modals/new-target.js"></script>
+    <link href="~/AdminTemplate/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/AdminTemplate/assets/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/custom/add.comment.js"></script>
+}
+
+
+                                         

@@ -1,5 +1,6 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewComment;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
 using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
@@ -31,7 +32,8 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
 		IGetPostById GetPostById { get; }
         IGetPostForSiteService GetPostForSiteService { get; }
         IGetPostDetailForSiteService GetPostDetailForSiteService { get; }
+		AddNewCommentService AddNewCommentService { get; }
 
-    }
+	}
 
 }

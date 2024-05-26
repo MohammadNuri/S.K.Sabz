@@ -127,15 +127,16 @@
                                 }
                                 
                                 <div class="dropdown-divider my-3 border-top"></div>
+
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     var userRole = User.FindFirst(ClaimTypes.Role);
-                                    if (userRole.Value.Contains("Admin"))
+                                    if (userRole != null && userRole.Value.Contains("Admin"))
                                     {
                                         <a class="dropdown-item text-primary" href="/Admin/Adminhome"><i class="uil uil-slack-alt align-middle me-1"></i> ورود به پنل مدیریت </a>
                                     }
-
                                 }
+
                                 <a class="dropdown-item text-info" href="/Authentication/UserInfo"><i class="uil uil-user-circle align-middle me-1"></i> ناحیه کاربری </a>
                                 <a class="dropdown-item text-danger" href="/Authentication/CustomSignOut"><i class="uil uil-sign-out-alt align-middle me-1"></i> خروج از حساب کاربری </a>
                             </div>

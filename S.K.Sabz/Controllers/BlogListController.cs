@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewComment;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
 using S.K.Sabz.Domain.Entities.Blog;
+using System.Security.Claims;
 
 namespace S.K.Sabz.Controllers
 {
@@ -28,6 +30,23 @@ namespace S.K.Sabz.Controllers
             }
 
             return View(result.Data);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewComment(AddNewCommentDto request, long postId, long? parentCommentId)
+        {
+
+			var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (!long.TryParse(userIdString, out long userId))
+			{
+				return Ok();
+			}
+
+
+            var result = await _blogFacad.AddNewCommentService.ExecuteAsync(request, userId, postId, parentCommentId);
+
+			return Json(result);
         }
 
     }

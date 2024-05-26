@@ -42,27 +42,33 @@ function Login(event) {
         url: "/Authentication/Login",
         data: postData,
         success: function (data) {
-            // Log the response data
-            console.log("Received response data:", data);
-
+            console.log("Received response data:", data); // Log the response data
             // Check if the login was successful
             if (data.isSuccess == true) {
+                // Check if there's a redirect URL in the query parameters
+                var queryParams = new URLSearchParams(window.location.search);
+                var redirectUrl = queryParams.get('redirectUrl');
+                console.log("Redirect URL:", redirectUrl); // Log the redirect URL
                 // Dismiss the loading spinner
                 swal.close();
-
                 // Display a success message using SweetAlert
                 swal.fire(
                     'موفق!',
                     data.message,
                     'success'
                 ).then(function (isConfirm) {
-                    // Redirect the user to the main page after dismissing the alert
-                    window.location.replace("/");
+                    // Redirect the user to the previous page or the main page after dismissing the alert
+                    if (redirectUrl) {
+                        console.log("Redirecting to:", redirectUrl); // Log the redirection URL
+                        window.location.href = redirectUrl;
+                    } else {
+                        console.log("Redirecting to default page."); // Log the default redirection
+                        window.location.href = "/";
+                    }
                 });
             } else {
                 // Dismiss the loading spinner
                 swal.close();
-
                 // Display a warning message using SweetAlert
                 swal.fire(
                     'هشدار!',
@@ -86,4 +92,5 @@ function Login(event) {
             );
         }
     });
+
 }

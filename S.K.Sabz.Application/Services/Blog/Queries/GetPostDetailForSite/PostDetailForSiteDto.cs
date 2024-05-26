@@ -1,4 +1,7 @@
-﻿namespace S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite
+﻿using S.K.Sabz.Domain.Entities.Blog;
+using static S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite.GetPostDetailForSiteService;
+
+namespace S.K.Sabz.Application.Services.Blog.Queries.GetPostDetailForSite
 {
     public class PostDetailForSiteDto
     {
@@ -11,6 +14,7 @@
         public string Description { get; set; } = string.Empty;
         public int ViewCount { get; set; }
         public List<string> Images { get; set; }
+        public List<PostCommentDto> PostComments { get; set; }
     }
 
 

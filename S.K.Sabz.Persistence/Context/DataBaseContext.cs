@@ -40,6 +40,11 @@ namespace S.K.Sabz.Persistence.Context
             //--Not Showing Deleted Data
             //--!IsRemoved
             QueryFilter.ApplyQueryFilter(modelBuilder);
-        }
+
+			//--Configure for Relationships
+			ConfigureRelationship.PostCommentConfig(modelBuilder);
+
+
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using S.K.Sabz.Application.Interfaces.Context;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
+using S.K.Sabz.Application.Services.Blog.Commands.AddNewComment;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
 using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
@@ -131,8 +132,17 @@ namespace S.K.Sabz.Application.Services.Blog.FacadPattern
 			}
 		}
 
+		private AddNewCommentService _addNewCommentService;
+		public AddNewCommentService AddNewCommentService
+		{
+			get
+			{
+				return _addNewCommentService = _addNewCommentService ?? new AddNewCommentService(_context);
+			}
+		}
 
-		
+
+
 
 	}
 }

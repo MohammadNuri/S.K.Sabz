@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\AdminTemplate\assets\js\custom\search.input.js" />
+    <Content Remove="wwwroot\js\custom\add.comment.js" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\AdminTemplate\assets\js\custom\search.input.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\custom\add.comment.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\AdminTemplate\assets\js\custom\search.input.js" />
+    <None Include="wwwroot\js\custom\add.comment.js" />
   </ItemGroup>
 
 </Project>
