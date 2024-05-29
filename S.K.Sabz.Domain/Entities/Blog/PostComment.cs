@@ -15,7 +15,7 @@ namespace S.K.Sabz.Domain.Entities.Blog
         // Foreign key to the parent comment, null if this is not a reply
         public long? ParentCommentId { get; set; }
         public virtual PostComment ParentComment { get; set; }
-
+        
         // Navigation property for replies
         public virtual ICollection<PostComment> Replies { get; set; } = new List<PostComment>();
 

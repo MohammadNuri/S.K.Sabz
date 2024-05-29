@@ -90,7 +90,8 @@ namespace S.K.Sabz.Controllers
 			{
 				var loginUserDto = new LoginUserDto
 				{
-					PhoneNumber = request.PhoneNumber,
+					PhoneNumber = loginDto.PhoneNumber,
+					Roles = loginDto.Roles.ToList()
 				};
 
 				userId = await _getUserIdByPhoneNumberService.Execute(loginUserDto);
@@ -106,14 +107,17 @@ namespace S.K.Sabz.Controllers
 					   new Claim(ClaimTypes.NameIdentifier, userResult.Data.UserId.ToString()),
 					   new Claim(ClaimTypes.Name, request.PhoneNumber),
 					};
-					if (!string.IsNullOrWhiteSpace(roles))
-					{
-						// Split the roles and add them as claims
-						var roleClaims = roles.Split(',').Select(role => new Claim(ClaimTypes.Role, role.Trim()));
-						firstClaims.AddRange(roleClaims);
-					}
 
-					var firstIdentity = new ClaimsIdentity(firstClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    if (!string.IsNullOrWhiteSpace(roles))
+                    {
+                        // Split the roles and add them as claims
+                        var roleClaims = roles.ToString().Split(',')
+                            .Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+
+                        firstClaims.AddRange(roleClaims);
+                    }
+
+                    var firstIdentity = new ClaimsIdentity(firstClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 					var firstPrincipal = new ClaimsPrincipal(firstIdentity);
 					var firstProperties = new AuthenticationProperties
 					{
@@ -173,6 +177,8 @@ namespace S.K.Sabz.Controllers
 				return View("Error");
 			}
 
+			var userRoleClaim = User.FindFirst(ClaimTypes.Role);
+
 			// Convert UserInfoViewModel to UserInfoDto
 			var userInfoDto = new UserInfoDto
 			{
@@ -201,6 +207,15 @@ namespace S.K.Sabz.Controllers
             new Claim(ClaimTypes.Surname, userInfo.LastName)
 
         };
+			var roles = userRoleClaim.Value;
+            if (!string.IsNullOrWhiteSpace(roles))
+            {
+                // Split the roles and add them as claims
+                var roleClaims = roles.ToString().Split(',')
+                    .Select(role => new Claim(ClaimTypes.Role, role.Trim()));
+
+                claims.AddRange(roleClaims);
+            }
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);

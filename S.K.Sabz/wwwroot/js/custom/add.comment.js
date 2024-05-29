@@ -4,6 +4,15 @@
         event.preventDefault(); // Prevent the default form submission
         AddComment(event, '@Model.Id'); // Call the AddComment function
     });
+
+    // Add an event listener to the delete buttons
+    document.querySelectorAll('.delete-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+            var commentId = this.getAttribute('data-comment-id');
+            DeleteComment(event, commentId);
+        });
+    });
 });
 
 function AddComment(event, postId) {
@@ -85,10 +94,6 @@ function AddComment(event, postId) {
     });
 }
 
-
-
-
-
 // Add an event listener to the reply buttons
 document.querySelectorAll('.reply-btn').forEach(function (btn) {
     btn.addEventListener('click', function (event) {
@@ -107,7 +112,6 @@ document.querySelectorAll('.reply-btn').forEach(function (btn) {
         AddReply(event, postId);
     });
 });
-
 
 // Function to handle the reply submission
 function AddReply(event, postId) {
@@ -193,4 +197,63 @@ function AddReply(event, postId) {
 }
 
 
+function DeleteComment(event, commentId) {
+    event.preventDefault();
 
+    swal.fire({
+        title: 'حذف نظر',
+        text: "مدیر گرامی از حذف نظر مطمئن هستید؟",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#7cacbe',
+        confirmButtonText: 'بله، نظر حذف شود',
+        cancelButtonText: 'خیر'
+    }).then((result) => {
+        if (result.value) {
+            console.log("Confirmed, proceeding with AJAX request to delete comment with ID:", commentId);
+
+            $.ajax({
+                url: "/BlogList/DeleteComment",
+                type: "POST",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                dataType: 'json',
+                data: { commentId: commentId },
+                success: function (data) {
+                    console.log("AJAX request successful, received response:", data);
+
+                    if (data.isSuccess) {
+                        swal.fire(
+                            'موفق!',
+                            data.message,
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        swal.fire(
+                            'هشدار!',
+                            data.message,
+                            'warning'
+                        );
+                    }
+                },
+                error: function (request, status, error) {
+                    console.error("Error occurred during AJAX request:", error);
+                    console.error("Request status:", status);
+                    console.error("Request responseText:", request.responseText);
+
+                    swal.fire(
+                        'هشدار!',
+                        'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
+                        'warning'
+                    );
+                }
+            });
+        } else {
+            console.log("Deletion canceled by user.");
+        }
+    }).catch(error => {
+        console.error("Error with SweetAlert:", error);
+    });
+}

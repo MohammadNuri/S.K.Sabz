@@ -2,6 +2,7 @@
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewCategory;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewComment;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewPost;
+using S.K.Sabz.Application.Services.Blog.Commands.DeleteComment;
 using S.K.Sabz.Application.Services.Blog.Commands.EditPost;
 using S.K.Sabz.Application.Services.Blog.Commands.RemoveCategory;
 using S.K.Sabz.Application.Services.Blog.Commands.RemovePost;
@@ -34,6 +35,9 @@ namespace S.K.Sabz.Application.Interfaces.FacadPatterns
         IGetPostDetailForSiteService GetPostDetailForSiteService { get; }
 		AddNewCommentService AddNewCommentService { get; }
 
-	}
+        DeleteCommentService DeleteCommentService { get; }
+
+
+    }
 
 }

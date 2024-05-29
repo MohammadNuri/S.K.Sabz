@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using S.K.Sabz.Application.Interfaces.FacadPatterns;
 using S.K.Sabz.Application.Services.Blog.Commands.AddNewComment;
 using S.K.Sabz.Application.Services.Blog.Queries.GetPostForSite;
@@ -47,6 +48,14 @@ namespace S.K.Sabz.Controllers
             var result = await _blogFacad.AddNewCommentService.ExecuteAsync(request, userId, postId, parentCommentId);
 
 			return Json(result);
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(long commentId)
+        {
+
+            return Json(await _blogFacad.DeleteCommentService.ExecuteAsync(commentId));
         }
 
     }

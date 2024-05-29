@@ -101,7 +101,16 @@
                                                 var userRole = User.FindFirst(ClaimTypes.Role);
                                                 if (userRole != null && userRole.Value.Contains("Admin"))
                                                 {
-                                                    <a href="#" class="text-muted reply-btn" data-bs-toggle="modal" data-bs-target="#add-category" data-comment-id="@comments.Id"><i class="mdi mdi-reply"></i> پاسخ </a>
+                                                    <div>
+                                                        <a href="#" class="text-muted reply-btn" data-bs-toggle="modal" data-bs-target="#add-category" data-comment-id="@comments.Id" style="display: block;">
+                                                            <i class="mdi mdi-reply"></i> پاسخ
+                                                        </a>
+                                                        <a href="#" class="text-danger delete-btn" data-comment-id="@comments.Id" style="display: block;">
+                                                            <i class="mdi mdi-delete"></i> حذف
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    
                                                 }
                                             }
                                             
@@ -126,6 +135,17 @@
                                                                 <small class="text-muted">@replies.InsertTime.ToPersianDate("ds dd ms Y")</small>
                                                             </div>
                                                         </div>
+
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+                                                            var userRole = User.FindFirst(ClaimTypes.Role);
+                                                            if (userRole != null && userRole.Value.Contains("Admin"))
+                                                            {
+                                                                <a href="#" class="text-danger delete-btn" data-comment-id="@replies.Id" style="display: block;">
+                                                                    <i class="mdi mdi-delete"></i> حذف
+                                                                </a>
+                                                            }
+                                                        }
                                                         
                                                     </div>
                                                     <div class="mt-3">
@@ -247,6 +267,7 @@
     <link href="~/AdminTemplate/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <script src="~/AdminTemplate/assets/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/js/custom/add.comment.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 }
 
 
